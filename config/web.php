@@ -4,7 +4,7 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'id' => 'basic',
+    'id' => 'zshop.yii5391',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -13,7 +13,7 @@ $config = [
     ],
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+            //TODO insert a NEW secret key in the following - this is required by cookie validation
             'cookieValidationKey' => 'SF4_wmLxCh2zpwfOkI18tbUwloN59qC3',
         ],
         'cache' => [
@@ -52,7 +52,18 @@ $config = [
         ],
         */
     ],
+    'language' => 'ru-RU',
+    'name' => 'Магазинчик у Zeberti19',
     'params' => $params,
+    'timeZone' => 'Asia/Yekaterinburg',
+    //'catchAll'=>['notice/index','message'=>'Проверка функции уведомления'],
+    //======================СОБЫТИЯ=========================================
+//    'on beforeRequest' => function($Event){
+//        file_put_contents('test.txt', date('Y.m.d H:i:s') .' Проверка события "on beforeRequest"');
+//    },
+//    'on beforeAction' => function($Event){
+//        $Event->isValid=false;
+//    },
 ];
 
 if (YII_ENV_DEV) {
