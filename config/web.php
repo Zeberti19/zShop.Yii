@@ -57,6 +57,7 @@ $config = [
     'name' => 'Магазинчик у Zeberti19',
     'params' => $params,
     'timeZone' => 'Asia/Yekaterinburg'
+    //'catchAll'=>['notice/index','message'=>'Проверка функции уведомления']
 ];
 
 if (YII_ENV_DEV) {
