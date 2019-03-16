@@ -13,7 +13,7 @@ $config = [
     ],
     'components' => [
         'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+            //TODO insert a NEW secret key in the following - this is required by cookie validation
             'cookieValidationKey' => 'SF4_wmLxCh2zpwfOkI18tbUwloN59qC3',
         ],
         'cache' => [
@@ -52,7 +52,11 @@ $config = [
         ],
         */
     ],
+    'defaultRoute'=>'education/e2_6',
+    'language' => 'ru-RU',
+    'name' => 'Магазинчик у Zeberti19',
     'params' => $params,
+    'timeZone' => 'Asia/Yekaterinburg'
 ];
 
 if (YII_ENV_DEV) {
