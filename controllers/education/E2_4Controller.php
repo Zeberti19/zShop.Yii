@@ -19,12 +19,4 @@ class E2_4Controller extends Controller
         else
             return $this->render('auth',["AuthModel"=>$AuthModel]);
     }
-
-    /**
-     * @return string
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
 }
