@@ -56,8 +56,15 @@ $config = [
     'language' => 'ru-RU',
     'name' => 'Магазинчик у Zeberti19',
     'params' => $params,
-    'timeZone' => 'Asia/Yekaterinburg'
-    //'catchAll'=>['notice/index','message'=>'Проверка функции уведомления']
+    'timeZone' => 'Asia/Yekaterinburg',
+    //'catchAll'=>['notice/index','message'=>'Проверка функции уведомления'],
+    //======================СОБЫТИЯ=========================================
+//    'on beforeRequest' => function($Event){
+//        file_put_contents('test.txt', date('Y.m.d H:i:s') .' Проверка события "on beforeRequest"');
+//    },
+//    'on beforeAction' => function($Event){
+//        $Event->isValid=false;
+//    },
 ];
 
 if (YII_ENV_DEV) {
