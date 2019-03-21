@@ -109,6 +109,13 @@ class E2_6Controller extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actions()
+    {
+        return [
+            "error"=>'app\actions\ErrorActionZshop'
+        ];
+    }
+
     /**
      * Finds the Country model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
