@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/** @var app\models\Auth $AuthModel */
+/** @var app\models\education\Auth $AuthModel */
 ?>
 <h1>Форма авторизации</h1>
 <?php $Form = ActiveForm::begin() ?>
