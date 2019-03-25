@@ -8,3 +8,4 @@ use yii\helpers\Html;
 Вы ввели следующий данные:<br>
 <b>Логин</b>: <?= Html::encode($AuthModel->login) ?><br>
 <b>Пароль</b>: <?= Html::encode($AuthModel->password) ?><br>
+<b>Email</b>: <?= Html::encode($AuthModel->email) ?><br>

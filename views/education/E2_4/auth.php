@@ -9,6 +9,7 @@ use yii\widgets\ActiveForm;
 <?php $Form = ActiveForm::begin() ?>
     <?= $Form->field($AuthModel,"login")->label("Логин")?>
     <?= $Form->field($AuthModel,"password")->label("Пароль")?>
+    <?= $Form->field($AuthModel,"email")?>
     <div class="form-group">
         <?= Html::submitButton("Войти", ["class"=>"btn btn-primary"]) ?>
     </div>

@@ -13,7 +13,7 @@ class E2_4Controller extends Controller
      */
     public function actionAuth()
     {
-        $AuthModel=new Auth();
+        $AuthModel=new Auth(['scenario'=>Auth::SCENARIO_REGISTRATION]);
         if($AuthModel->load(Yii::$app->request->post()) && $AuthModel->validate())
             return $this->render('authValidated',["AuthModel"=>$AuthModel]);
         else

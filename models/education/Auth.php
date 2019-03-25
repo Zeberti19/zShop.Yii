@@ -13,13 +13,31 @@ use yii\base\Model;
 
 class Auth extends Model
 {
+    const SCENARIO_REGISTRATION='registration';
+    const SCENARIO_AUTH='auth';
+    
     public $login;
     public $password;
+    public $email;
+
+    public function scenarios()
+    {
+        $scenarios=parent::scenarios();
+        $scenarios[self::SCENARIO_REGISTRATION]=['login','password','email'];
+        $scenarios[self::SCENARIO_AUTH]=['login','password'];
+        return $scenarios;
+    }
 
     public function rules()
     {
-        return [
-            [ ["login", "password"], "required"]
+        if ($this->scenario==self::SCENARIO_REGISTRATION)
+            return [
+                [ ["login", "password", 'email'], "required"]
                ];
+        if ($this->scenario==self::SCENARIO_AUTH)
+            return [
+                [ ["login", "password"], "required"]
+            ];
+        return [];
     }
 }
