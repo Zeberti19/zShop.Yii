@@ -40,6 +40,7 @@ class Auth extends Model
     {
         return [
             [ ["login", "password", 'email'], "required", "on" => self::SCENARIO_REGISTRATION],
+            [ 'email', 'email'],
             [ ["login", "password"], "required", "on" => self::SCENARIO_AUTH]
         ];
     }
