@@ -38,14 +38,9 @@ class Auth extends Model
 
     public function rules()
     {
-        if ($this->scenario==self::SCENARIO_REGISTRATION)
-            return [
-                [ ["login", "password", 'email'], "required"]
-               ];
-        if ($this->scenario==self::SCENARIO_AUTH)
-            return [
-                [ ["login", "password"], "required"]
-            ];
-        return [];
+        return [
+            [ ["login", "password", 'email'], "required", "on" => self::SCENARIO_REGISTRATION],
+            [ ["login", "password"], "required", "on" => self::SCENARIO_AUTH]
+        ];
     }
 }
