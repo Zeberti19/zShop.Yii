@@ -28,6 +28,14 @@ class Auth extends Model
         return $scenarios;
     }
 
+    public function attributeLabels()
+    {
+        $attributeLabelMas=parent::attributeLabels();
+        $attributeLabelMas["login"]=\yii::t("app","Логин");
+        $attributeLabelMas["password"]=\yii::t("app","Пароль");
+        return $attributeLabelMas;
+    }
+
     public function rules()
     {
         if ($this->scenario==self::SCENARIO_REGISTRATION)

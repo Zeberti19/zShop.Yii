@@ -7,8 +7,10 @@ use yii\widgets\ActiveForm;
 ?>
 <h1>Форма авторизации</h1>
 <?php $Form = ActiveForm::begin() ?>
-    <?= $Form->field($AuthModel,"login")->label("Логин")?>
-    <?= $Form->field($AuthModel,"password")->label("Пароль")?>
+    <!--?//= $Form->field($AuthModel,"login")->label("Логин")?-->
+    <!--?//= $Form->field($AuthModel,"password")->label("Пароль")?-->
+    <?= $Form->field($AuthModel,"login")?>
+    <?= $Form->field($AuthModel,"password")?>
     <?= $Form->field($AuthModel,"email")?>
     <div class="form-group">
         <?= Html::submitButton("Войти", ["class"=>"btn btn-primary"]) ?>
