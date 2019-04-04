@@ -1,7 +1,7 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/db.php';
+$dbDev = require __DIR__ . '/dbDev.php';
 
 $config = [
     'id' => 'zshop.yii5391',
@@ -42,7 +42,7 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
+        'db' => $dbDev,
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,

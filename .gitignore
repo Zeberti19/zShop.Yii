@@ -1,5 +1,5 @@
 # config
-config/db.php
+config/dbDev.php
 
 # phpstorm project files
 .idea
