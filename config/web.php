@@ -52,6 +52,7 @@ $config = [
         ],
         */
     ],
+    'defaultRoute'=>'main-page',
     'language' => 'ru-RU',
     'name' => 'Магазинчик у Zeberti19',
     'params' => $params,
