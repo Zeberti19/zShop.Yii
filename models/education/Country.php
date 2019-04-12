@@ -13,6 +13,11 @@ use Yii;
  */
 class Country extends \yii\db\ActiveRecord
 {
+    public static function getDb()
+    {
+        return Yii::$app->dbEducation;
+    }
+
     /**
      * {@inheritdoc}
      */

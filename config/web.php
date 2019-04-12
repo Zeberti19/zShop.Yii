@@ -1,7 +1,8 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/db.php';
+$dbEducation = require __DIR__ . '/dbEducation.php';
+$dbDev = require __DIR__ . '/dbDev.php';
 
 $config = [
     'id' => 'zshop.yii5391',
@@ -44,7 +45,8 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
+        'db' => $dbDev,
+        'dbEducation' => $dbEducation,
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -54,7 +56,7 @@ $config = [
         ],
         */
     ],
-    'defaultRoute'=>'education/e2_6',
+    'defaultRoute'=>'main-page',
     'language' => 'ru-RU',
     'name' => 'Магазинчик у Zeberti19',
     'params' => $params,

@@ -1,5 +1,6 @@
 # config
-config/db.php
+config/dbDev.php
+config/dbEducation.php
 
 # phpstorm project files
 .idea
