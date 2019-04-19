@@ -1,9 +1,9 @@
 <?php
 use yii\helpers\Html;
-/**@var app\models\GoodsCategory $GoodsCategory*/
+/**@var app\models\CategoryGoods $CategoriesGoods*/
 ?>
 <div class="what-interested">Что интересует?</div>
-<?php foreach($GoodsCategory as $Cat)
+<?php foreach($CategoriesGoods as $Cat)
 {
     $catNameEncoded=Html::encode($Cat->name);
     $imagePath='images/'.$Cat->image_path;
@@ -17,15 +17,13 @@ use yii\helpers\Html;
     //если высота изображения больше ширины, то выравниваем изображение по высоте с учетом пропорций. В противном случаи - по ширине
     ($imageParams and $imageParams[1]>$imageParams[0]) ? $imageVerticalIs=true : $imageVerticalIs=false;
 ?>
-    <div class="goods-category">
-        <div class="goods-category__image-container">
-            <?php ?>
-            <img class="goods-category__image<?=($imageVerticalIs ? ' goods-category__image_vertical' : '')?>"
+    <div class="category-goods" onclick="document.location='?r=goods-by-category&categoryId=<?= str_replace("'", "\\'", Html::encode($Cat->id) ) ?>';">
+        <div class="category-goods__image-container">
+            <img class="category-goods__image<?=($imageVerticalIs ? ' category-goods__image_vertical' : '')?>"
                  src="<?= Html::encode($imagePath) ?>" alt="Изображение категории товаров &quot;<?= $catNameEncoded ?>&quot;"
                  height="300" width="300"
             >
         </div>
-
-        <div class="goods-category__image-label"><?= $catNameEncoded ?></div>
+        <div class="category-goods__image-label"><?= $catNameEncoded ?></div>
     </div>
 <?php } ?>
