@@ -4,7 +4,7 @@ namespace app\models;
 
 use yii\db\ActiveRecord;
 
-class GoodsCategory extends ActiveRecord
+class Goods extends ActiveRecord
 {
     //
 }
