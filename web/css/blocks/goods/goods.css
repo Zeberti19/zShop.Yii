@@ -1,3 +1,4 @@
+/*Общие стили для товара*/
 .goods
 {
     font-family: "Comic Sans MS", "Monaco CY", cursive;
@@ -25,14 +26,14 @@
     height: 100%;
     width: auto;
 }
-.goods__image-label
+.goods__name
 {
     cursor: pointer;
     height: 10%;
     overflow: hidden;
     text-align: center;
 }
-.goods__image-label:hover
+.goods__name:hover
 {
     text-decoration: underline;
 }
