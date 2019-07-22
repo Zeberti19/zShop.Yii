@@ -2,6 +2,7 @@
     use yii\helpers\Html;
     /**@var app\models\Goods $Goods*/
 
+    $goodsNameEncoded=Html::encode($Goods->name);
     $imagePath=Yii::$app->params['image_prefix'].$Goods->image_path;
     $imageParams=@getimagesize($imagePath);
     //если изображения нет, то ставим изображение по-умолчанию
@@ -16,9 +17,11 @@
     $price=strripos($Goods->price,'.') ? number_format($Goods->price,2,',', ' ') : number_format($Goods->price,0,',', ' ');
 ?>
     <div class="goods goods_page">
-        <div class="goods__name goods__name_page"><?= Html::encode( $Goods->name ); ?></div>
+        <div class="goods__name goods__name_page"><?= $goodsNameEncoded ?></div>
         <div class="goods__image-container goods__image-container_page">
-            <img src="<?= Html::encode( $imagePath ); ?>" class="goods__image" height="500" width="500">
+            <img class="goods__image<?=($imageVerticalIs ? ' goods__image_vertical' : '')?>"
+                src="<?= Html::encode( $imagePath ); ?>" alt="Изображение товара &quot;<?= $goodsNameEncoded ?>&quot;"
+                height="500" width="500">
         </div>
         <div class="goods__buy-container">
             <div class="goods__buy-container-inner">

@@ -8,16 +8,16 @@
 {
     float: left;
     height: 90%;
-    width: 45%;
+    width: 40%;
     position: relative;
     text-align: right;
 }
 .goods__buy-container-inner
 {
-    left: 50%;
-    top: 50%;
     position: absolute;
-    transform: translate(-50%,-50%);
+    top: 50%;
+    transform: translate(0,-50%);
+    width: 100%;
 }
 .goods__buy-button
 {
@@ -29,7 +29,7 @@
 {
     float: left;
     height: 90%;
-    width: 55%;
+    width: 60%;
 }
 .goods__name_page
 {
@@ -44,4 +44,5 @@
 {
     font-size: 2.5rem;
     height: auto;
+    text-align: right;
 }
