@@ -7,12 +7,12 @@ use yii\helpers\Html;
 <?php foreach($GoodsList as $Goods)
 {
     $goodsNameEncoded=Html::encode($Goods->name);
-    $imagePath=$Goods->image_path;
+    $imagePath=Yii::$app->params['image_prefix'].$Goods->image_path;
     $imageParams=@getimagesize($imagePath);
     //если изображения нет, то ставим изображение по-умолчанию
     if (!$imageParams)
     {
-        $imagePath='images/empty.png';
+        $imagePath=Yii::$app->params['image_prefix'].'empty.png';
         $imageParams=getimagesize($imagePath);
     }
     //если высота изображения больше ширины, то выравниваем изображение по высоте с учетом пропорций. В противном случаи - по ширине
