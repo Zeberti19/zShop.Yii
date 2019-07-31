@@ -15,4 +15,11 @@ class CategoryGoods extends ActiveRecord
     {
         return "category_goods";
     }
+
+    public function rules()
+    {
+        return [
+            [['id', 'name'], 'required']
+            ];
+    }
 }
