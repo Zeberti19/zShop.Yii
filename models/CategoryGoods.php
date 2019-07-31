@@ -10,4 +10,16 @@ class CategoryGoods extends ActiveRecord
     {
         return $this->hasMany( Goods::class, [ 'id' => 'goods_id' ] )->viaTable('category_goods_goods_ref',['category_id'=>'id']);
     }
+
+    static function tableName()
+    {
+        return "category_goods";
+    }
+
+    public function rules()
+    {
+        return [
+            [['id', 'name'], 'required']
+            ];
+    }
 }

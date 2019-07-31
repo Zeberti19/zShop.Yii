@@ -7,12 +7,12 @@ use yii\helpers\Html;
 <?php foreach($GoodsList as $Goods)
 {
     $goodsNameEncoded=Html::encode($Goods->name);
-    $imagePath='images/'.$Goods->image_path;
+    $imagePath=Yii::$app->params['image_prefix'].$Goods->image_path;
     $imageParams=@getimagesize($imagePath);
     //если изображения нет, то ставим изображение по-умолчанию
     if (!$imageParams)
     {
-        $imagePath='images/empty.png';
+        $imagePath=Yii::$app->params['image_prefix'].'empty.png';
         $imageParams=getimagesize($imagePath);
     }
     //если высота изображения больше ширины, то выравниваем изображение по высоте с учетом пропорций. В противном случаи - по ширине
@@ -20,7 +20,8 @@ use yii\helpers\Html;
     //форматируем цену
     $price=strripos($Goods->price,'.') ? number_format($Goods->price,2,',', ' ') : number_format($Goods->price,0,',', ' ');
     ?>
-    <div class="goods" onclick="document.location='#'">
+    <!--TODO проверить, что ИД с кавычками разных видов доступен для вставки-->
+    <div class="goods" onclick="document.location='?r=goods&id=<?= Html::encode($Goods->id); ?>'">
         <div class="goods__image-container">
             <img class="goods__image<?=($imageVerticalIs ? ' goods__image_vertical' : '')?>"
                  src="<?= Html::encode($imagePath) ?>" alt="Изображение категории товаров &quot;<?= $goodsNameEncoded ?>&quot;"
@@ -28,7 +29,7 @@ use yii\helpers\Html;
             >
         </div>
         <?php //TODO Товары по категории. Добавить "..." в конец названия товара, если его текст полностью не влазит в окошко  ?>
-        <div class="goods__image-label" title="<?= $goodsNameEncoded ?>"><?= $goodsNameEncoded ?></div>
+        <div class="goods__name" title="<?= $goodsNameEncoded ?>"><?= $goodsNameEncoded ?></div>
         <div class="goods__price">(<?= $price ?> руб)</div>
     </div>
 <?php } ?>

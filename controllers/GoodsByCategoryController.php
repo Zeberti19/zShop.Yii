@@ -11,7 +11,7 @@ class GoodsByCategoryController extends Controller
         $CategoryGoods=CategoryGoods::findOne($categoryId);
         $GoodsList=$CategoryGoods->goods;
         $this->view->registerCssFile('css/goods-by-category.css');
-        $this->view->registerCssFile('css/blocks/goods.css');
+        $this->view->registerCssFile('css/blocks/goods/goods.css');
         return $this->render('index.php',['CategoryGoods'=>$CategoryGoods,
                                           'GoodsList'=>$GoodsList]);
     }

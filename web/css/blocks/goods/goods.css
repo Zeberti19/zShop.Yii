@@ -1,0 +1,44 @@
+/*Общие стили для товара*/
+.goods
+{
+    font-family: "Comic Sans MS", "Monaco CY", cursive;
+    height: 22rem;
+    width: 20rem;
+}
+.goods__image-container
+{
+    height: 80%;
+    position: relative;
+    overflow: hidden;
+}
+.goods__image
+{
+    cursor: pointer;
+    height: auto;
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.goods__image_vertical
+{
+    height: 100%;
+    width: auto;
+}
+.goods__name
+{
+    cursor: pointer;
+    height: 10%;
+    overflow: hidden;
+    text-align: center;
+}
+.goods__name:hover
+{
+    text-decoration: underline;
+}
+.goods__price
+{
+    height: 10%;
+    text-align: center;
+}
