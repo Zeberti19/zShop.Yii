@@ -1,0 +1,36 @@
+.admin-user-edit-window
+{
+    background-color: white;
+    border-bottom: 0.2rem solid grey;
+    border-left: 0.1rem solid grey;
+    border-right: 0.2rem solid grey;
+    border-top: 0.1rem solid grey;
+    left: 50%;
+    top: 50%;
+    height: 22rem;
+    width: 36rem;
+    padding: 2rem;
+    position: absolute;
+    transform: translate(-50%,-50%);
+}
+.admin-user-edit-window__head-for-id
+{
+    font-weight: bold;
+}
+.admin-user-edit-window__label
+{
+    display: block;
+}
+.admin-user-edit-window__label-container
+{
+    margin-top: 1rem;
+}
+.admin-user-edit-window__field
+{
+    margin-left: 2rem;
+}
+.admin-user-edit-window__save-button
+{
+    margin-top: 2rem;
+    text-align: right;
+}

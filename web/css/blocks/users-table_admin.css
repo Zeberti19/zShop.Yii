@@ -1,0 +1,71 @@
+.users-table_admin
+{
+    border: 0.2rem solid #808080;
+    border-left: 0;
+    border-top: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    max-height: 100%;
+}
+.users-table_admin__cell
+{
+    border: 0.2rem solid #808080;
+    border-right: 0;
+    border-bottom: 0;
+    padding: 0.5rem;
+}
+.users-table_admin__row
+{
+    cursor: pointer;
+}
+.users-table_admin__row_selected
+{
+    background-color: #dcdcdc;
+}
+.users-table_admin__line_thead
+    .users-table_admin__cell,
+.users-table_admin__line_tools
+    .users-table_admin__cell
+{
+    position: sticky;
+}
+.users-table_admin__line_thead
+    .users-table_admin__cell
+{
+    background-color: #d3d3d3;
+    cursor: default;
+    height: 3rem;
+    top: 0;
+    text-align: center;
+}
+.users-table_admin__row.users-table_admin__line_tools
+{
+    color: #4771e6;
+    cursor: default;
+    font-size: 80%;
+    text-align: right;
+    text-decoration: underline;
+}
+.users-table_admin__tool
+{
+    cursor: pointer;
+}
+.users-table_admin__line_tools
+    .users-table_admin__cell
+{
+    background-color: #ffffff;
+    border-top: 0.1rem solid #808080;
+    border-bottom: 0.1rem solid #808080;
+    padding: 0 0.5rem 0;
+    top: 3.2rem; /*высота ячеек-заголовков + размер их границ*/
+}
+.users-table_admin__row.users-table_admin__line_before-tools
+    .users-table_admin__cell
+{
+    border-bottom: 0;
+}
+.users-table_admin__row.users-table_admin__line_after-tools
+    .users-table_admin__cell
+{
+    border-top: 0;
+}
