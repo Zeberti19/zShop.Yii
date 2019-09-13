@@ -1,3 +1,8 @@
+/**Контейнер для Yii2 виджета нумерации страниц**/
+.pagination_users-table-admin-self .pagination
+{
+    margin: 0;
+}
 .users-table-container
 {
     display: inline-block;
