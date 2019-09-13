@@ -3,6 +3,12 @@ Admin=new Object();
 //TODO вынести файлы со ИД и CSS HTML элементов в отдельный файл
 //TODO свойства должны задываться на сервере
 //свойства
+/**
+ * Текущий вид данных о пользователях
+ *
+ * @type {null|string}
+ */
+Admin.dataViewId=null;
 Admin.userTableId='users_table_admin';
 Admin.userTableRowCls='users-table_admin__row';
 Admin.userTableRowSelectCls='users-table_admin__row_selected';
@@ -19,6 +25,13 @@ Admin.userEditWindow.patronymicFieldId='admin_user_edit_window_patronymic_field'
 Admin.userEditWindow.inputId='admin-user-edit-window__input_id';
 Admin.userEditWindow.containerForId='admin_user_edit_window_head_id_container';
 //методы
+/**
+ * Меняет вид данных о пользователях на следующий по порядку
+ */
+Admin.dataViewNext= function ()
+{
+    window.location.assign('?r=admin/data-view-next&dataViewId=' + encodeURIComponent(Admin.dataViewId))
+};
 Admin.userCreateWindow.close=function()
 {
   document.getElementById(Admin.userCreateWindow.id).style.display='none';
