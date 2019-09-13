@@ -1,0 +1,11 @@
+.text-button
+{
+    background-color: #afafaf;
+    border: 0.2rem solid #78797a;
+    border-radius: 2rem;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Trebuchet MS, Helvetica CY, sans-serif;
+    padding: 0.5rem;
+}

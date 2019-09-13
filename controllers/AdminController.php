@@ -17,6 +17,8 @@ class AdminController extends Controller
         $this->view->registerCssFile('css/blocks/admin-user-create-window.css');
         $this->view->registerCssFile('css/blocks/admin-user-edit-window.css');
         $this->view->registerCssFile('css/blocks/buttons/close-button/close-button.css');
+        $this->view->registerCssFile('css/blocks/buttons/text-button/text-button.css');
+        $this->view->registerCssFile('css/blocks/view-changer/view-changer.css');
         //TODO подключение общих CSS и JS нужно прописать один раз в одном месте
         $this->view->registerCssFile('css/blocks/message/message.css');
         $this->view->registerJsFile('js/_ProjectCommon/ProjectCommon.js');
