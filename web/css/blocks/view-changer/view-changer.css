@@ -1,0 +1,19 @@
+/*TODO уточить можно ли в БЭМ несколько стилей применять сразу к нескольким классам*/
+.view-changer__button
+{
+    margin-left: 2rem;
+}
+.view-changer__description
+{
+    font-family: Trebuchet MS, Helvetica CY, sans-serif;
+    font-size: 2rem;
+}
+.view-changer__view-name
+{
+   color: #2f6f9d;
+   text-decoration: underline;
+}
+.view-changer__text
+{
+    display: inline-block;
+}
