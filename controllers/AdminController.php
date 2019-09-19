@@ -39,7 +39,8 @@ class AdminController extends Controller
     public function actionUserCreate($id, $surname, $firstname, $patronymic)
     {
         $UserNew = new Users(["id" => $id, "surname" => $surname, "first_name" => $firstname, "patronymic" => $patronymic]);
-        $UserNew->save();
+        //TODO добавить подробный вывод ошибок
+        if ( !$UserNew->validate() or !$UserNew->save()) return "Возникла ошибка при сохранении пользователя";
         if (!$id)
         {
             //TODO убрать костыль, который устанавливает префикс пути изображений до других событий JS
@@ -60,8 +61,9 @@ class AdminController extends Controller
 
     public function actionUserDelete($id)
     {
-        //TODO добавить обработку ошибок
         Users::deleteAll(['id' => $id]);
+        //TODO добавить подробный вывод ошибок
+        if ( !Users::deleteAll(['id' => $id])) return "Возникла ошибка при удалении пользователя";
         return $this->actionUsersTableShow('self');
     }
 
@@ -72,7 +74,8 @@ class AdminController extends Controller
         $UserEdit->surname = $surname;
         $UserEdit->first_name = $firstname;
         $UserEdit->patronymic = $patronymic;
-        $UserEdit->save();
+        //TODO добавить подробный вывод ошибок
+        if ( !$UserEdit->validate() or !$UserEdit->save()) return "Возникла ошибка при редактировании пользователя";
 
         return $this->actionUsersTableShow('self');
     }
