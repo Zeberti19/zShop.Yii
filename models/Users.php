@@ -8,7 +8,9 @@ class Users extends ActiveRecord
     public function rules()
     {
         return [
-            [['surname', 'patronymic', 'first_name'], 'required']
+            //TODO добавить разные правила для разных сценариев (создание, редактирование, удаление и т.п.)
+            [ 'id', 'safe' ],
+            [ ['surname', 'patronymic', 'first_name'], 'required' ]
         ];
     }
 }
