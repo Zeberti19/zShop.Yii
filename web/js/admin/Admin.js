@@ -48,12 +48,20 @@ Admin.userEditWindow.show=function()
     var EditWindow=document.getElementById(Admin.userEditWindow.id);
     var userId=rowSelected.attributes['data-user_id'].value;
     document.getElementById(Admin.userEditWindow.containerForId).textContent=userId;
-    document.getElementById(Admin.userEditWindow.inputId).value=userId;
-    //
-    document.getElementById(Admin.userEditWindow.surnameFieldId).value=rowSelected.getElementsByClassName(Admin.userTableCellSurnameCls)[0].textContent;
-    document.getElementById(Admin.userEditWindow.firstnameFieldId).value=rowSelected.getElementsByClassName(Admin.userTableCellFirstNameCls)[0].textContent;
-    document.getElementById(Admin.userEditWindow.patronymicFieldId).value=rowSelected.getElementsByClassName(Admin.userTableCellPatronymicCls)[0].textContent;
-    EditWindow.style.display='block';
+    if ('self'==Admin.dataViewId)
+    {
+        document.getElementById(Admin.userEditWindow.inputId).value=userId;
+        document.getElementById(Admin.userEditWindow.surnameFieldId).value=rowSelected.getElementsByClassName(Admin.userTableCellSurnameCls)[0].textContent;
+        document.getElementById(Admin.userEditWindow.firstnameFieldId).value=rowSelected.getElementsByClassName(Admin.userTableCellFirstNameCls)[0].textContent;
+        document.getElementById(Admin.userEditWindow.patronymicFieldId).value=rowSelected.getElementsByClassName(Admin.userTableCellPatronymicCls)[0].textContent;
+        EditWindow.style.display='block';
+    }
+    else if ('yii2'==Admin.dataViewId)
+    {
+        //TODO Добавить редактирование пользователя через объекты Yii2 фреймворка
+        alert('В разработке');
+    }
+    //EditWindow.style.display='block';
 };
 Admin.userEditWindow.close=function()
 {
@@ -64,7 +72,15 @@ Admin.userDelete=function()
     var rowSelected=document.getElementById(Admin.userTableId).getElementsByClassName(Admin.userTableRowSelectCls);
     if ( 0 == rowSelected.length ) return;
     rowSelected=rowSelected[0];
-    window.location.assign('/?r=admin/user-delete&id=' + encodeURIComponent(rowSelected.attributes['data-user_id'].value));
+    if ('self'==Admin.dataViewId)
+    {
+        window.location.assign('/?r=admin/user-delete&id=' + encodeURIComponent(rowSelected.attributes['data-user_id'].value));
+    }
+    else if ('yii2'==Admin.dataViewId)
+    {
+        //TODO Добавить удаление пользователя через объекты Yii2 фреймворка
+        alert('В разработке');
+    }
 };
 Admin.userTableTrSelect=function(row)
 {

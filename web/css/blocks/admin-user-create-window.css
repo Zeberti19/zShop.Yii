@@ -7,8 +7,8 @@
     border-top: 0.1rem solid grey;
     left: 50%;
     top: 50%;
-    height: 32rem;
-    width: 36rem;
+    min-height: 32rem;
+    min-width: 36rem;
     padding: 2rem;
     position: absolute;
     transform: translate(-50%,-50%);

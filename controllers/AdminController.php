@@ -36,12 +36,29 @@ class AdminController extends Controller
         return $this->actionUsersTableShow($dataViewNext);
     }
 
-    public function actionUserCreate($id, $surname, $firstname, $patronymic)
+    public function actionUserCreate($dataViewId)
     {
-        $UserNew = new Users(["id" => $id, "surname" => $surname, "first_name" => $firstname, "patronymic" => $patronymic]);
+        $UserNew=null;
+        //
+        $mesPref='Сохранение нового пользователя. ';
+        if ('self'==$dataViewId)
+        {
+            $id=Yii::$app->request->get('id');
+            $surname=Yii::$app->request->get('surname');
+            $firstname=Yii::$app->request->get('first_name');
+            $patronymic=Yii::$app->request->get('patronymic');
+            $UserNew = new Users(["id" => $id, "surname" => $surname, "first_name" => $firstname, "patronymic" => $patronymic]);
+        }
+        elseif ('yii2'==$dataViewId)
+        {
+            $UserNew = new Users();
+            $UserNew->load(Yii::$app->request->post());
+        }
         //TODO добавить подробный вывод ошибок
-        if ( !$UserNew->validate() or !$UserNew->save()) return "Возникла ошибка при сохранении пользователя";
-        if (!$id)
+        if ( !$UserNew ) throw new \Exception($mesPref.'Объект "Пользователь" (UserNew) не смог быть создан. Сохранение невозможно');
+        if ( !$UserNew->validate() ) throw new \Exception($mesPref.'Новосозданный объект "Пользователь" (UserNew) не прощел валидацию параметров. Сохранение отмененно');
+        if ( !$UserNew->save(false) ) throw new \Exception($mesPref.'Новосозданный объект "Пользователь" (UserNew) не смог быть сохранен');
+        if (!$UserNew->id)
         {
             //TODO убрать костыль, который устанавливает префикс пути изображений до других событий JS
             $this->view->registerJs('ProjectCommon.imagePrefix="' . Yii::$app->params['image_prefix'] . '"');
@@ -49,19 +66,18 @@ class AdminController extends Controller
             //TODO разобраться почему не работает refresh для получения ИД из AUTO INCREMENT
             //$UserNew->refresh();
             //TODO вынести функционал отображения сообщения в общий хелпер
-            $messageHtml = 'Создан новый пользователь с <b>ИД:</b> ' . Html::encode($id) . '<br>' .
+            $messageHtml = 'Создан новый пользователь с <b>ИД:</b> ' . Html::encode($UserNew->id) . '<br>' .
                 '<b>Фамиилия:</b> ' . Html::encode($UserNew->surname) . '<br>' .
                 '<b>Имя:</b> ' . Html::encode($UserNew->first_name) . '<br>' .
                 '<b>Отчество:</b> ' . Html::encode($UserNew->patronymic) . '<br>';
             $messageForJs = str_replace('\"', '\\\"', $messageHtml);
             $this->view->registerJs('ProjectCommon.Message.show("' . $messageForJs . '", true)');
         }
-        return $this->actionUsersTableShow('self');
+        return $this->actionUsersTableShow($dataViewId);
     }
 
     public function actionUserDelete($id)
     {
-        Users::deleteAll(['id' => $id]);
         //TODO добавить подробный вывод ошибок
         if ( !Users::deleteAll(['id' => $id])) return "Возникла ошибка при удалении пользователя";
         return $this->actionUsersTableShow('self');
@@ -112,18 +128,22 @@ class AdminController extends Controller
         {
             case 'yii2':
                 $dataViewName='Yii2 инструменты';
+                $UserForm=new Users();
+                $dataRender['UserForm']=$UserForm;
                 break;
             case 'self':
             default:
-                $Pagination=new yii\data\Pagination(['totalCount'=>$Users->count(), 'defaultPageSize'=>10]);
-                $Pagination->route='admin';
-                $page=Yii::$app->request->get('page');
-                $page=$page?$page:1;
-                $Pagination->params=['page'=>$page];
-                $dataRender['Pagination']=$Pagination;
-                $Users->offset($Pagination->offset)->limit($Pagination->limit);
                 $dataViewName='Самодельные инструменты';
         }
+        $Pagination=new yii\data\Pagination(['totalCount'=>$Users->count(), 'defaultPageSize'=>10]);
+        $Pagination->route='admin';
+        $tablePageN=Yii::$app->request->get('page');
+        $tablePageN=$tablePageN?$tablePageN:1;
+        $dataRender['tablePageN']=$tablePageN;
+        $Pagination->params=['page'=>$tablePageN,'dataViewId'=>$dataViewId];
+        $dataRender['Pagination']=$Pagination;
+        $Users->offset($Pagination->offset)->limit($Pagination->limit);
+        //
         $dataRender['Users']=$Users->all();
         //
         $dataRender['dataViewId']=$dataViewId;
