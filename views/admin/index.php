@@ -91,7 +91,8 @@
     {
         //TODO Добавить объекты Yii2 фреймворка для редактирования пользователя
     }
-    else {?>
+    else
+    { ?>
         <form action="/">
             <input type="hidden" name="r" value="admin/user-edit">
             <input id="admin-user-edit-window__input_id" type="hidden" name="id" value="">
@@ -109,7 +110,8 @@
     <?php } ?>
     <img src="<?= Html::encode( Yii::$app->params['image_prefix'].'close-button.png' ) ?>" class="close-button" onclick="Admin.userEditWindow.close()" alt="Закрыть">
 </div>
-<!--TODO перенести функционал Pagination только в Yii2 инструменты-->
-<div class="pagination_users-table-admin-self">
-    <?= \yii\widgets\LinkPager::widget(['pagination'=>$Pagination]); ?>
-</div>
+<?php if ('yii2'==$dataViewId): ?>
+    <div class="pagination_users-table-admin-self">
+        <?= \yii\widgets\LinkPager::widget(['pagination'=>$Pagination]); ?>
+    </div>
+<?php endif ?>
