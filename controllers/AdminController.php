@@ -129,19 +129,20 @@ class AdminController extends Controller
                 $dataViewName='Yii2 инструменты';
                 $UserForm=new Users();
                 $dataRender['UserForm']=$UserForm;
+                //
+                $Pagination=new yii\data\Pagination(['totalCount'=>$Users->count(), 'defaultPageSize'=>10]);
+                $Pagination->route='admin';
+                $tablePageN=Yii::$app->request->get('page');
+                $tablePageN=$tablePageN?$tablePageN:1;
+                $dataRender['tablePageN']=$tablePageN;
+                $Pagination->params=['page'=>$tablePageN,'dataViewId'=>$dataViewId];
+                $dataRender['Pagination']=$Pagination;
+                $Users->offset($Pagination->offset)->limit($Pagination->limit);
                 break;
             case 'self':
             default:
                 $dataViewName='Самодельные инструменты';
         }
-        $Pagination=new yii\data\Pagination(['totalCount'=>$Users->count(), 'defaultPageSize'=>10]);
-        $Pagination->route='admin';
-        $tablePageN=Yii::$app->request->get('page');
-        $tablePageN=$tablePageN?$tablePageN:1;
-        $dataRender['tablePageN']=$tablePageN;
-        $Pagination->params=['page'=>$tablePageN,'dataViewId'=>$dataViewId];
-        $dataRender['Pagination']=$Pagination;
-        $Users->offset($Pagination->offset)->limit($Pagination->limit);
         //
         $dataRender['Users']=$Users->all();
         //
