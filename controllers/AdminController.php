@@ -83,12 +83,12 @@ class AdminController extends Controller
         return $this->actionUsersTableShow('self');
     }
 
-    public function actionUserEdit($id, $surname, $firstname, $patronymic)
+    public function actionUserEdit($id, $surname, $first_name, $patronymic)
     {
         /**@var yii\db\ActiveRecord $UserEdit */
         $UserEdit = Users::findOne(["id" => $id]);
         $UserEdit->surname = $surname;
-        $UserEdit->first_name = $firstname;
+        $UserEdit->first_name = $first_name;
         $UserEdit->patronymic = $patronymic;
         //TODO добавить подробный вывод ошибок
         if ( !$UserEdit->validate() or !$UserEdit->save()) return "Возникла ошибка при редактировании пользователя";
