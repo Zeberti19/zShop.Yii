@@ -16,7 +16,7 @@ class AdminController extends Controller
      *
      * @var array
      */
-    protected $dataViewMas=['self','yii2'];
+    protected $dataViewMas=['self','yii2','gii'];
 
     public $defaultAction='users-table-show';
 
@@ -33,6 +33,11 @@ class AdminController extends Controller
         $key++;
         if($key==count($this->dataViewMas)) $dataViewNext=$this->dataViewMas[0];
         else $dataViewNext=$this->dataViewMas[$key];
+        if('gii'==$dataViewNext)
+        {
+            header('Location:?r=users-gii');
+            exit;
+        }
         return $this->actionUsersTableShow($dataViewNext);
     }
 
@@ -122,7 +127,7 @@ class AdminController extends Controller
         $this->view->registerJs('ProjectCommon.imagePrefix="' . Yii::$app->params['image_prefix'] . '"');
         //
         $this->view->registerJsFile('js/admin/Admin.js');
-        $Users = Users::find();
+        $Users = Users::find()->orderBy('surname,first_name,patronymic');
         //
         switch($dataViewId)
         {
