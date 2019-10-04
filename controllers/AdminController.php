@@ -8,16 +8,16 @@ use yii\helpers\Html;
 
 class AdminController extends Controller
 {
-  /**
-   * Массив с ИД видов данных о пользователях. В данном массиве важен порядок,
-   * т.к. именно исходя из порядка ИД в этом массиве определяется в какой последовательности будут переключаться
-   * виды данных
-   *
-   * @var array
-   */
-   protected $dataViewMas=['self','yii2'];
+    /**
+     * Массив с ИД видов данных о пользователях. В данном массиве важен порядок,
+     * т.к. именно исходя из порядка ИД в этом массиве определяется в какой последовательности будут переключаться
+     * виды данных
+     *
+     * @var array
+     */
+    protected $dataViewMas=['self','yii2','gii'];
 
-   public $defaultAction='users-table-show';
+    public $defaultAction='users-table-show';
 
     /**
      * Меняет вид данных на следующий по порядку
@@ -32,6 +32,11 @@ class AdminController extends Controller
         $key++;
         if($key==count($this->dataViewMas)) $dataViewNext=$this->dataViewMas[0];
         else $dataViewNext=$this->dataViewMas[$key];
+        if('gii'==$dataViewNext)
+        {
+            header('Location:?r=users-gii');
+            exit;
+        }
         return $this->actionUsersTableShow($dataViewNext);
     }
 
@@ -121,7 +126,7 @@ class AdminController extends Controller
         $this->view->registerJs('ProjectCommon.imagePrefix="' . Yii::$app->params['image_prefix'] . '"');
         //
         $this->view->registerJsFile('js/admin/Admin.js');
-        $Users = Users::find();
+        $Users = Users::find()->orderBy('surname,first_name,patronymic');
         //
         switch($dataViewId)
         {
