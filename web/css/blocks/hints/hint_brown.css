@@ -1,0 +1,35 @@
+.hint
+{
+    border: 0.1rem solid;
+    border-radius: 2rem;
+    max-height: 15rem;
+    max-width: 30rem;
+    padding: 1rem;
+    position: absolute;
+    z-index: 1000;
+}
+.hint__text
+{
+    max-height: 13rem;
+    max-width: 28rem;
+    overflow: auto;
+}
+.hint_brown__arrow
+{
+    position: absolute;
+    height: 1.5rem;
+    width: 3.5rem;
+    z-index: 1100;
+}
+.hint_brown__arrow_left
+{
+    /*TODO улучшить картинку с изображением стрелочки подсказки*/
+    background-image: url(/images/hints/hint_brown__arrow_left.png);
+    left:-1.7rem;
+    top:-0.1rem;
+}
+.hint_brown
+{
+    background-color: #f7d2a0cc;
+    border-color: #8a6d3b;
+}
