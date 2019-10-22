@@ -11,6 +11,7 @@
     use yii\helpers\Html;
     use \yii\bootstrap\ActiveForm;
 ?>
+<div class="section-admin">
 <h1 class="head1">Администрирование</h1>
 <h2 class="head2">Пользователи</h2>
 <div class="view-changer">
@@ -19,6 +20,12 @@
         "<span class="view-changer__view-name"><?= $dataViewName;?></span>"
     </div>
     <div class="view-changer__button text-button" onclick="Admin.dataViewNext()">Переключить</div>
+    <?php if (APP_HINT):?>
+        <div class="hint hint_brown hint-view-changer">
+            <div class="hint_brown__arrow hint_brown__arrow_left"></div>
+            <div class="hint__text">Переключает способ представления данных пользователей. Причем иногда меняется не только само представление, но и функционал</div>
+        </div>
+    <?php endif ?>
 </div>
 <div class="users-table-container">
     <table id="users_table_admin" class="users-table_admin">
@@ -115,3 +122,4 @@
         <?= \yii\widgets\LinkPager::widget(['pagination'=>$Pagination]); ?>
     </div>
 <?php endif ?>
+</div>

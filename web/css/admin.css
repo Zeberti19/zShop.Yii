@@ -1,9 +1,18 @@
+.section-admin .hint-view-changer
+{
+    left: 45rem;
+    top: 0;
+}
 /**Контейнер для Yii2 виджета нумерации страниц**/
-.pagination_users-table-admin-self .pagination
+.section-admin .pagination_users-table-admin-self .pagination
 {
     margin: 0;
 }
-.users-table-container
+.section-admin .view-changer
+{
+    position: relative;
+}
+.section-admin .users-table-container
 {
     display: inline-block;
     height: 40rem;
