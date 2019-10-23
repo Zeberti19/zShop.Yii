@@ -9,7 +9,7 @@ use yii\grid\GridView;
 
 $this->title = 'Пользователи';
 ?>
-<div class="users-gii-index">
+<div class="users-gii-index section-admin">
 
     <h1 class="head1">Администрирование</h1>
     <h2 class="head2"><?= Html::encode($this->title) ?></h2>
@@ -19,6 +19,12 @@ $this->title = 'Пользователи';
             "<span class="view-changer__view-name">Yii2 Gii инструменты</span>"
         </div>
         <div class="view-changer__button text-button" onclick="UsersGii.Controller.dataTypeChange()">Переключить</div>
+        <?php if (APP_HINT):?>
+            <div class="hint hint_brown hint-view-changer view-selected-gii">
+                <div class="hint_brown__arrow hint_brown__arrow_left"></div>
+                <div class="hint__text">Переключает способ представления данных пользователей. Причем иногда меняется не только само представление, но и функционал</div>
+            </div>
+        <?php endif ?>
     </div>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <p>

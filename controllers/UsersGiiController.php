@@ -43,6 +43,7 @@ class UsersGiiController extends Controller
         $this->view->registerCssFile('css/blocks/buttons/text-button/text-button.css');
         $this->view->registerCssFile('css/blocks/view-changer/view-changer.css');
         $this->view->registerCssFile('css/admin.css');
+        $this->view->registerCssFile('css/blocks/hints/hint_brown.css');
         $this->view->registerJsFile('js/users-gii/UsersGiiController.js');
         $this->view->registerJsFile('js/users-gii/UsersGiiModel.js');
         $this->view->registerJsFile('js/users-gii/UsersGiiView.js');

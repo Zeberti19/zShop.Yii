@@ -1,9 +1,19 @@
-.section-admin .hint-view-changer
+.section-admin .view-selected-gii.hint-view-changer
 {
-    left: 45rem;
-    top: 0;
+    left: 41rem;
+    top: 0.5rem;
 }
-/**Контейнер для Yii2 виджета нумерации страниц**/
+.section-admin .view-selected-yii2.hint-view-changer
+{
+    left: 39rem;
+    top: 0.5rem;
+}
+.section-admin .view-selected-self.hint-view-changer
+{
+    left: 46rem;
+    top: 0.5rem;
+}
+/**РљРѕРЅС‚РµР№РЅРµСЂ РґР»СЏ Yii2 РІРёРґР¶РµС‚Р° РЅСѓРјРµСЂР°С†РёРё СЃС‚СЂР°РЅРёС†**/
 .section-admin .pagination_users-table-admin-self .pagination
 {
     margin: 0;
