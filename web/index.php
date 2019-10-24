@@ -7,6 +7,9 @@ defined('YII_ENV') or define('YII_ENV', 'dev');
 //Определяет стоит ли отображать различные подсказки для проекта
 defined('APP_HINT') or define('APP_HINT', true);
 
+/*Сокращение наименование константы DIRECTORY_SEPARATOR*/
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
 
