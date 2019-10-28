@@ -6,7 +6,8 @@ $dbDev = require __DIR__ . '/dbDev.php';
 $config = [
     'id' => 'zshop.yii5391',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    //TODO поэксперементировать с добавлением собственного модуля или компонета в раздел начальной загрузки
+    'bootstrap' => ['log','app\components\init\InitMain'],
     'aliases' => [
         '@log_own' => '@app/runtime/logs', /*путь до папке, где храняться собственные логи, отличные от логов Yii2*/
         '@bower' => '@vendor/bower-asset',
