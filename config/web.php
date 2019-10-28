@@ -59,7 +59,7 @@ $config = [
     'name' => 'Магазинчик у Zeberti19',
     'params' => $params,
     'timeZone' => 'Asia/Yekaterinburg',
-    //'catchAll'=>['notice/index','message'=>'Проверка функции уведомления'],
+    //'catchAll'=>['notice/message-show','message'=>'Сайт временно не доступен из-за технических работ. Приносим свои извинения.'],
     //======================СОБЫТИЯ=========================================
 //    'on beforeRequest' => function($Event){
 //        file_put_contents('test.txt', date('Y.m.d H:i:s') .' Проверка события "on beforeRequest"');
