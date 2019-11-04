@@ -54,6 +54,10 @@ $config = [
         ],
         */
     ],
+    'controllerMap'=>[
+        //просто сокращение для длинного пути
+        'gbc'=>'app\controllers\GoodsByCategoryController'
+    ],
     'defaultRoute'=>'main-page',
     'language' => 'ru-RU',
     'name' => 'Магазинчик у Zeberti19',

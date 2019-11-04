@@ -21,7 +21,7 @@ use yii\helpers\Html;
     //если высота изображения больше ширины, то выравниваем изображение по высоте с учетом пропорций. В противном случаи - по ширине
     ($imageParams and $imageParams[1]>$imageParams[0]) ? $imageVerticalIs=true : $imageVerticalIs=false;
 ?>
-    <div class="category-goods" onclick="document.location='?r=goods-by-category&categoryId=<?= str_replace("'", "\\'", Html::encode($Cat->id) ) ?>';">
+    <div class="category-goods" onclick="document.location='?r=gbc&categoryId=<?= str_replace("'", "\\'", Html::encode($Cat->id) ) ?>';">
         <div class="category-goods__image-container">
             <img class="category-goods__image<?=($imageVerticalIs ? ' category-goods__image_vertical' : '')?>"
                  src="<?= Html::encode($imagePath) ?>" alt="Изображение категории товаров &quot;<?= $catNameEncoded ?>&quot;"
