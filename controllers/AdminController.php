@@ -3,7 +3,7 @@ namespace app\controllers;
 
 use yii;
 use yii\web\Controller;
-use app\models\Users;
+//use app\models\Users; //в данном файле не используется это пространство имен, просто чтобы поэксперементировать с компонентом Yii::$app->users вместо того, чтобы обращаться к этому классу через Users
 use yii\helpers\Html;
 
 class AdminController extends Controller
@@ -51,11 +51,11 @@ class AdminController extends Controller
             $surname=Yii::$app->request->get('surname');
             $firstname=Yii::$app->request->get('first_name');
             $patronymic=Yii::$app->request->get('patronymic');
-            $UserNew = new Users(["id" => $id, "surname" => $surname, "first_name" => $firstname, "patronymic" => $patronymic]);
+            $UserNew = new \app\models\Users(["id" => $id, "surname" => $surname, "first_name" => $firstname, "patronymic" => $patronymic]);
         }
         elseif ('yii2'==$dataViewId)
         {
-            $UserNew = new Users();
+            $UserNew = new \app\models\Users();
             $UserNew->load(Yii::$app->request->post());
         }
         //TODO добавить подробный вывод ошибок
@@ -82,15 +82,19 @@ class AdminController extends Controller
 
     public function actionUserDelete($id)
     {
+        /**@var \app\models\Users $Users*/
+        $Users=\Yii::$app->users;
         //TODO добавить подробный вывод ошибок
-        if ( !Users::deleteAll(['id' => $id])) return "Возникла ошибка при удалении пользователя";
+        if ( !$Users::deleteAll(['id' => $id])) return "Возникла ошибка при удалении пользователя";
         return $this->actionUsersTableShow('self');
     }
 
     public function actionUserEdit($id, $surname, $first_name, $patronymic)
     {
+        /**@var \app\models\Users $Users*/
+        $Users=\Yii::$app->users;
         /**@var yii\db\ActiveRecord $UserEdit */
-        $UserEdit = Users::findOne(["id" => $id]);
+        $UserEdit = $Users::findOne(["id" => $id]);
         $UserEdit->surname = $surname;
         $UserEdit->first_name = $first_name;
         $UserEdit->patronymic = $patronymic;
@@ -111,6 +115,8 @@ class AdminController extends Controller
     public function actionUsersTableShow($dataViewId='self')
     {
         $dataRender=[];
+        /**@var \app\models\Users $Users*/
+        $Users=\Yii::$app->users;
         //
         $this->view->registerCssFile('css/admin.css');
         $this->view->registerCssFile('css/blocks/users-table_admin.css');
@@ -127,30 +133,30 @@ class AdminController extends Controller
         $this->view->registerJs('ProjectCommon.imagePrefix="' . Yii::$app->params['image_prefix'] . '"');
         //
         $this->view->registerJsFile('js/admin/Admin.js');
-        $Users = Users::find()->orderBy('surname,first_name,patronymic');
+        $UsersSort = $Users::find()->orderBy('surname,first_name,patronymic');
         //
         switch($dataViewId)
         {
             case 'yii2':
                 $dataViewName='Yii2 инструменты';
-                $UserForm=new Users();
+                $UserForm=new \app\models\Users();
                 $dataRender['UserForm']=$UserForm;
                 //
-                $Pagination=new yii\data\Pagination(['totalCount'=>$Users->count(), 'defaultPageSize'=>10]);
+                $Pagination=new yii\data\Pagination(['totalCount'=>$UsersSort->count(), 'defaultPageSize'=>10]);
                 $Pagination->route='admin';
                 $tablePageN=Yii::$app->request->get('page');
                 $tablePageN=$tablePageN?$tablePageN:1;
                 $dataRender['tablePageN']=$tablePageN;
                 $Pagination->params=['page'=>$tablePageN,'dataViewId'=>$dataViewId];
                 $dataRender['Pagination']=$Pagination;
-                $Users->offset($Pagination->offset)->limit($Pagination->limit);
+                $UsersSort->offset($Pagination->offset)->limit($Pagination->limit);
                 break;
             case 'self':
             default:
                 $dataViewName='Самодельные инструменты';
         }
         //
-        $dataRender['Users']=$Users->all();
+        $dataRender['Users']=$UsersSort->all();
         //
         $dataRender['dataViewId']=$dataViewId;
         $dataRender['dataViewName']=$dataViewName;
