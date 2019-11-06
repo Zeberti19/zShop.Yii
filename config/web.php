@@ -63,6 +63,8 @@ $config = [
     'name' => 'Магазинчик у Zeberti19',
     'params' => $params,
     'timeZone' => 'Asia/Yekaterinburg',
+    //TODO придумать какой-нить функционал, чтобы использовать параметр version
+    'version' => '1.0'
     //'catchAll'=>['notice/message-show','message'=>'Сайт временно не доступен из-за технических работ. Приносим свои извинения.'],
     //======================СОБЫТИЯ=========================================
 //    'on beforeRequest' => function($Event){
