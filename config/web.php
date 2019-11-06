@@ -58,7 +58,7 @@ $config = [
         //просто сокращение для длинного пути
         'gbc'=>'app\controllers\GoodsByCategoryController'
     ],
-    'defaultRoute'=>'main-page',
+    'defaultRoute'=>'categories',
     'language' => 'ru-RU',
     'name' => 'Магазинчик у Zeberti19',
     'params' => $params,
