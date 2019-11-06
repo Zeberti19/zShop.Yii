@@ -20,7 +20,7 @@
             "<span class="view-changer__view-name"><?= $dataViewName;?></span>"
         </div>
         <div class="view-changer__button text-button" onclick="Admin.dataViewNext()">Переключить</div>
-        <?php if (APP_HINT):?>
+        <?php if (Yii::$app->params['hints_show']):?>
             <div class="hint hint_brown hint-view-changer view-selected-<?= $dataViewId ?>">
                 <div class="hint_brown__arrow hint_brown__arrow_left"></div>
                 <div class="hint__text">Переключает способ представления данных пользователей. Причем иногда меняется не только само представление, но и функционал</div>
