@@ -58,7 +58,7 @@
         <div id="admin_user_create_window" class="admin-user-create-window" style="display: none">
             <div>Создание нового пользователя</div>
             <?php if ('yii2'==$dataViewId): ?>
-                <?php $UserCreateForm=ActiveForm::begin(['action'=>['admin/user-create', 'dataViewId' => $dataViewId, 'page' => $tablePageN]]) ?>
+                <?php $UserCreateForm=ActiveForm::begin(['action'=>['admin/users-tools/user-create', 'dataViewId' => $dataViewId, 'page' => $tablePageN]]) ?>
                     <?= $UserCreateForm->field($UserForm, 'id')->label("ИД"); ?>
                     <?= $UserCreateForm->field($UserForm, 'surname')->label("Фамилия"); ?>
                     <?= $UserCreateForm->field($UserForm, 'first_name')->label("Имя"); ?>
@@ -69,7 +69,7 @@
                 <?php ActiveForm::end() ?>
             <?php else: ?>
                 <form action="/">
-                    <input type="hidden" name="r" value="admin/user-create">
+                    <input type="hidden" name="r" value="admin/users-tools/user-create">
                     <?php //TODO проверить как поведет себя encode для значения с кавычками ?>
                     <input type="hidden" name="dataViewId" value="<?= Html::encode( $dataViewId ); ?>">
                     <div class="admin-user-create-window__label-container"
@@ -102,7 +102,7 @@
             else
             { ?>
                 <form action="/">
-                    <input type="hidden" name="r" value="admin/user-edit">
+                    <input type="hidden" name="r" value="admin/users-tools/user-edit">
                     <input id="admin-user-edit-window__input_id" type="hidden" name="id" value="">
                     <div class="admin-user-edit-window__label-container">
                         <label for="admin_user_edit_window_surname_field" class="admin-user-edit-window__label">Фамиилия:<input id="admin_user_edit_window_surname_field" name="surname" class="admin-user-edit-window__field" type="text"></label>

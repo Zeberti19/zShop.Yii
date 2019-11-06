@@ -1,12 +1,12 @@
 <?php
-namespace app\controllers;
+namespace app\controllers\admin;
 
 use yii;
 use yii\web\Controller;
 //use app\models\Users; //в данном файле не используется это пространство имен, просто чтобы поэксперементировать с компонентом Yii::$app->users вместо того, чтобы обращаться к этому классу через Users
 use yii\helpers\Html;
 
-class AdminController extends Controller
+class UsersToolsController extends Controller
 {
     /**
      * Массив с ИД видов данных о пользователях. В данном массиве важен порядок,
@@ -143,7 +143,7 @@ class AdminController extends Controller
                 $dataRender['UserForm']=$UserForm;
                 //
                 $Pagination=new yii\data\Pagination(['totalCount'=>$UsersSort->count(), 'defaultPageSize'=>10]);
-                $Pagination->route='admin';
+                $Pagination->route='admin/users-tools';
                 $tablePageN=Yii::$app->request->get('page');
                 $tablePageN=$tablePageN?$tablePageN:1;
                 $dataRender['tablePageN']=$tablePageN;
