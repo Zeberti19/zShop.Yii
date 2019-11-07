@@ -9,7 +9,7 @@ $config = [
     //TODO поэксперементировать с добавлением собственного модуля или компонета в раздел начальной загрузки
     'bootstrap' => ['log','app\components\init\InitMain'],
     'aliases' => [
-        '@log_own' => '@app/runtime/logs', /*путь до папке, где храняться собственные логи, отличные от логов Yii2*/
+        '@log_own' => '@runtime/logs', /*путь до папке, где храняться собственные логи, отличные от логов Yii2*/
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
