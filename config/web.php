@@ -60,6 +60,7 @@ $config = [
     ],
     'defaultRoute'=>'categories',
     'language' => 'ru-RU',
+    'layout'=>'main_z19',
     'name' => 'Магазинчик у Zeberti19',
     'params' => $params,
     'timeZone' => 'Asia/Yekaterinburg',
