@@ -35,14 +35,12 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    //TODO заменить обработчики основных разделов сайта
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Администрирование', 'url' => ['/admin/users/users-tools']],
-            ['label' => 'Home', 'url' => ['/'.Yii::$app->defaultRoute]],
-            ['label' => 'About', 'url' => ['/deprecated/site/about']],
-            ['label' => 'Contact', 'url' => ['/deprecated/site/contact']],
+            ['label' => 'На главную', 'url' => ['/'.Yii::$app->defaultRoute]],
+            ['label' => 'О нас', 'url' => ['/deprecated/site/about']],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/deprecated/site/login']]
             ) : (
@@ -72,9 +70,6 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
     </div>
 </footer>
 

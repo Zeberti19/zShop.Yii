@@ -6,7 +6,7 @@ use yii\web\Controller;
 use app\models\Users;
 use yii\helpers\Html;
 
-class AdminController extends Controller
+class UsersToolsController extends Controller
 {
     /**
      * Массив с ИД видов данных о пользователях. В данном массиве важен порядок,
@@ -126,7 +126,7 @@ class AdminController extends Controller
         $this->view->registerJsFile('js/_ProjectCommon/Message.js');
         $this->view->registerJs('ProjectCommon.imagePrefix="' . Yii::$app->params['image_prefix'] . '"');
         //
-        $this->view->registerJsFile('js/admin/users/Admin.js');
+        $this->view->registerJsFile('js/admin/users/UsersTools.js');
         $Users = Users::find()->orderBy('surname,first_name,patronymic');
         //
         switch($dataViewId)
@@ -137,7 +137,7 @@ class AdminController extends Controller
                 $dataRender['UserForm']=$UserForm;
                 //
                 $Pagination=new yii\data\Pagination(['totalCount'=>$Users->count(), 'defaultPageSize'=>10]);
-                $Pagination->route='admin/users/admin';
+                $Pagination->route='admin/users/users-tools';
                 $tablePageN=Yii::$app->request->get('page');
                 $tablePageN=$tablePageN?$tablePageN:1;
                 $dataRender['tablePageN']=$tablePageN;

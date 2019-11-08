@@ -1,15 +1,15 @@
 <?php
-    /**@var app\models\Users $Users*/
-    /**@var string|null $userNewId*/
-    /**@var string|null $messageHtml*/
-    /**@var string $dataViewId*/
-    /**@var string $dataViewName*/
-    /**@var yii\data\Pagination $Pagination*/
-    /**@var app\models\Users $UserForm*/
-    /**@var int $tablePageN*/
+/**@var app\models\Users $Users*/
+/**@var string|null $userNewId*/
+/**@var string|null $messageHtml*/
+/**@var string $dataViewId*/
+/**@var string $dataViewName*/
+/**@var yii\data\Pagination $Pagination*/
+/**@var app\models\Users $UserForm*/
+/**@var int $tablePageN*/
 
-    use yii\helpers\Html;
-    use \yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
+use \yii\bootstrap\ActiveForm;
 ?>
 <div class="section-admin">
     <h1 class="head1">Администрирование</h1>
@@ -20,7 +20,8 @@
             "<span class="view-changer__view-name"><?= $dataViewName;?></span>"
         </div>
         <div class="view-changer__button text-button" onclick="Admin.dataViewNext()">Переключить</div>
-        <?php if (APP_HINT):?>
+        <?php if (Yii::$app->params['hints_show']):?>
+
             <div class="hint hint_brown hint-view-changer view-selected-<?= $dataViewId ?>">
                 <div class="hint_brown__arrow hint_brown__arrow_left"></div>
                 <div class="hint__text">Переключает способ представления данных пользователей. Причем иногда меняется не только само представление, но и функционал</div>
@@ -58,18 +59,18 @@
         <div id="admin_user_create_window" class="admin-user-create-window" style="display: none">
             <div>Создание нового пользователя</div>
             <?php if ('yii2'==$dataViewId): ?>
-                <?php $UserCreateForm=ActiveForm::begin(['action'=>['admin/users/admin/user-create', 'dataViewId' => $dataViewId, 'page' => $tablePageN]]) ?>
-                    <?= $UserCreateForm->field($UserForm, 'id')->label("ИД"); ?>
-                    <?= $UserCreateForm->field($UserForm, 'surname')->label("Фамилия"); ?>
-                    <?= $UserCreateForm->field($UserForm, 'first_name')->label("Имя"); ?>
-                    <?= $UserCreateForm->field($UserForm, 'patronymic')->label("Отчество"); ?>
-                    <div class="form-group">
-                        <?= Html::submitButton('Создать', ['class'=>'btn btn-primary']); ?>
-                    </div>
+                <?php $UserCreateForm=ActiveForm::begin(['action'=>['admin/users/users-tools/user-create', 'dataViewId' => $dataViewId, 'page' => $tablePageN]]) ?>
+                <?= $UserCreateForm->field($UserForm, 'id')->label("ИД"); ?>
+                <?= $UserCreateForm->field($UserForm, 'surname')->label("Фамилия"); ?>
+                <?= $UserCreateForm->field($UserForm, 'first_name')->label("Имя"); ?>
+                <?= $UserCreateForm->field($UserForm, 'patronymic')->label("Отчество"); ?>
+                <div class="form-group">
+                    <?= Html::submitButton('Создать', ['class'=>'btn btn-primary']); ?>
+                </div>
                 <?php ActiveForm::end() ?>
             <?php else: ?>
                 <form action="/">
-                    <input type="hidden" name="r" value="admin/users/admin/user-create">
+                    <input type="hidden" name="r" value="admin/users/users-tools/user-create">
                     <?php //TODO проверить как поведет себя encode для значения с кавычками ?>
                     <input type="hidden" name="dataViewId" value="<?= Html::encode( $dataViewId ); ?>">
                     <div class="admin-user-create-window__label-container"
@@ -102,7 +103,7 @@
             else
             { ?>
                 <form action="/">
-                    <input type="hidden" name="r" value="admin/users/admin/user-edit">
+                    <input type="hidden" name="r" value="admin/users/users-tools/user-edit">
                     <input id="admin-user-edit-window__input_id" type="hidden" name="id" value="">
                     <div class="admin-user-edit-window__label-container">
                         <label for="admin_user_edit_window_surname_field" class="admin-user-edit-window__label">Фамиилия:<input id="admin_user_edit_window_surname_field" name="surname" class="admin-user-edit-window__field" type="text"></label>

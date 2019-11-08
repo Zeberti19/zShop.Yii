@@ -19,7 +19,7 @@ $this->title = 'Пользователи';
             "<span class="view-changer__view-name">Yii2 Gii инструменты</span>"
         </div>
         <div class="view-changer__button text-button" onclick="UsersGii.Controller.dataTypeChange()">Переключить</div>
-        <?php if (APP_HINT):?>
+        <?php if (Yii::$app->params['hints_show']):?>
             <div class="hint hint_brown hint-view-changer view-selected-gii">
                 <div class="hint_brown__arrow hint_brown__arrow_left"></div>
                 <div class="hint__text">Переключает способ представления данных пользователей. Причем иногда меняется не только само представление, но и функционал</div>

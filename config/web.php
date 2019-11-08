@@ -6,15 +6,16 @@ $dbDev = require __DIR__ . '/dbDev.php';
 $config = [
     'id' => 'zshop.yii5391',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    //TODO поэксперементировать с добавлением собственного модуля или компонета в раздел начальной загрузки
+    'bootstrap' => ['log','app\components\init\InitMain'],
     'aliases' => [
+        '@log_own' => '@runtime/logs', /*путь до папке, где храняться собственные логи, отличные от логов Yii2*/
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
         'request' => [
-            //TODO insert a NEW secret key in the following - this is required by cookie validation
-            'cookieValidationKey' => 'SF4_wmLxCh2zpwfOkI18tbUwloN59qC3',
+            'cookieValidationKey' => 'z19Shp/kLling337.fLor-dSert_eGle',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -24,6 +25,7 @@ $config = [
             'loginUrl'=>'deprecated/site/login',
             'enableAutoLogin' => true,
         ],
+        'users'=>['class'=>'app\models\Users'],
         'errorHandler' => [
             //TODO изменить обработчик ошибок
             'errorAction' => 'deprecated/site/error',
@@ -54,12 +56,19 @@ $config = [
         ],
         */
     ],
-    'defaultRoute'=>'main-page',
+    'controllerMap'=>[
+        //просто сокращение для длинного пути
+        'gbc'=>'app\controllers\GoodsByCategoryController'
+    ],
+    'defaultRoute'=>'categories',
     'language' => 'ru-RU',
+    'layout'=>'main_z19',
     'name' => 'Магазинчик у Zeberti19',
     'params' => $params,
     'timeZone' => 'Asia/Yekaterinburg',
-    //'catchAll'=>['notice/index','message'=>'Проверка функции уведомления'],
+    //TODO придумать какой-нить функционал, чтобы использовать параметр version
+    'version' => '1.0'
+    //'catchAll'=>['notice/message-show','message'=>'Сайт временно не доступен из-за технических работ. Приносим свои извинения.'],
     //======================СОБЫТИЯ=========================================
 //    'on beforeRequest' => function($Event){
 //        file_put_contents('test.txt', date('Y.m.d H:i:s') .' Проверка события "on beforeRequest"');
