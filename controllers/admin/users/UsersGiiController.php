@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers;
+namespace app\controllers\admin\users;
 
 use Yii;
 use app\models\UsersGii;
@@ -42,11 +42,11 @@ class UsersGiiController extends Controller
         $dataProvider->sort->defaultOrder=['surname'=>SORT_ASC,'first_name'=>SORT_ASC,'patronymic'=>SORT_ASC];
         $this->view->registerCssFile('css/blocks/buttons/text-button/text-button.css');
         $this->view->registerCssFile('css/blocks/view-changer/view-changer.css');
-        $this->view->registerCssFile('css/admin.css');
+        $this->view->registerCssFile('css/admin/admin.css');
         $this->view->registerCssFile('css/blocks/hints/hint_brown.css');
-        $this->view->registerJsFile('js/users-gii/UsersGiiController.js');
-        $this->view->registerJsFile('js/users-gii/UsersGiiModel.js');
-        $this->view->registerJsFile('js/users-gii/UsersGiiView.js');
+        $this->view->registerJsFile('js/admin/users/UsersGiiController.js');
+        $this->view->registerJsFile('js/admin/users/UsersGiiModel.js');
+        $this->view->registerJsFile('js/admin/users/UsersGiiView.js');
         $this->view->registerJs('UsersGii.Model.dataViewId="' .str_replace('"','\"',$this->dataViewId) .'"');
 
         return $this->render('index', [

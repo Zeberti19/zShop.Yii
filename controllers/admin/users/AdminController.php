@@ -1,5 +1,5 @@
 <?php
-namespace app\controllers;
+namespace app\controllers\admin\users;
 
 use yii;
 use yii\web\Controller;
@@ -34,7 +34,7 @@ class AdminController extends Controller
         else $dataViewNext=$this->dataViewMas[$key];
         if('gii'==$dataViewNext)
         {
-            header('Location:?r=users-gii');
+            header('Location:?r=admin/users/users-gii');
             exit;
         }
         return $this->actionUsersTableShow($dataViewNext);
@@ -112,7 +112,7 @@ class AdminController extends Controller
     {
         $dataRender=[];
         //
-        $this->view->registerCssFile('css/admin.css');
+        $this->view->registerCssFile('css/admin/admin.css');
         $this->view->registerCssFile('css/blocks/users-table_admin.css');
         $this->view->registerCssFile('css/blocks/admin-user-create-window.css');
         $this->view->registerCssFile('css/blocks/admin-user-edit-window.css');
@@ -126,7 +126,7 @@ class AdminController extends Controller
         $this->view->registerJsFile('js/_ProjectCommon/Message.js');
         $this->view->registerJs('ProjectCommon.imagePrefix="' . Yii::$app->params['image_prefix'] . '"');
         //
-        $this->view->registerJsFile('js/admin/Admin.js');
+        $this->view->registerJsFile('js/admin/users/Admin.js');
         $Users = Users::find()->orderBy('surname,first_name,patronymic');
         //
         switch($dataViewId)
@@ -137,7 +137,7 @@ class AdminController extends Controller
                 $dataRender['UserForm']=$UserForm;
                 //
                 $Pagination=new yii\data\Pagination(['totalCount'=>$Users->count(), 'defaultPageSize'=>10]);
-                $Pagination->route='admin';
+                $Pagination->route='admin/users/admin';
                 $tablePageN=Yii::$app->request->get('page');
                 $tablePageN=$tablePageN?$tablePageN:1;
                 $dataRender['tablePageN']=$tablePageN;

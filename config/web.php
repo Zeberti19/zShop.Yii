@@ -21,10 +21,12 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
+            'loginUrl'=>'deprecated/site/login',
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            //TODO изменить обработчик ошибок
+            'errorAction' => 'deprecated/site/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
