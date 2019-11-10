@@ -16,18 +16,10 @@ class UsersGiiController extends Controller
 {
     protected $dataViewId='gii';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
+    public function actions()
     {
         return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
+          'data-view-next'=>'app\controllers\admin\users\UsersDataViewNextAction'
         ];
     }
 
@@ -118,6 +110,21 @@ class UsersGiiController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
     }
 
     /**

@@ -8,36 +8,13 @@ use yii\helpers\Html;
 
 class UsersToolsController extends Controller
 {
-    /**
-     * Массив с ИД видов данных о пользователях. В данном массиве важен порядок,
-     * т.к. именно исходя из порядка ИД в этом массиве определяется в какой последовательности будут переключаться
-     * виды данных
-     *
-     * @var array
-     */
-    protected $dataViewMas=['self','yii2','gii'];
-
     public $defaultAction='users-table-show';
 
-    /**
-     * Меняет вид данных на следующий по порядку
-     *
-     * @param $dataViewId
-     *          ИД текущего вида данных
-     * @return string
-     */
-    public function actionDataViewNext($dataViewId)
+    public function actions()
     {
-        $key=array_search($dataViewId,$this->dataViewMas);
-        $key++;
-        if($key==count($this->dataViewMas)) $dataViewNext=$this->dataViewMas[0];
-        else $dataViewNext=$this->dataViewMas[$key];
-        if('gii'==$dataViewNext)
-        {
-            header('Location:?r=admin/users/users-gii');
-            exit;
-        }
-        return $this->actionUsersTableShow($dataViewNext);
+        return [
+            'data-view-next'=>'app\controllers\admin\users\UsersDataViewNextAction'
+        ];
     }
 
     public function actionUserCreate($dataViewId)
