@@ -1,6 +1,8 @@
 <?php
 namespace app\controllers\admin\users;
 
+use yii\helpers\Url;
+
 /**
  * Класс-действие, которое меняет вид данных пользователей на следующий по порядку
  *
@@ -34,12 +36,11 @@ class UsersDataViewNextAction extends \yii\base\Action
         {
             case 'self':
             case 'yii2':
-                header("Location:?r=admin/users/users-tools&dataViewId={$dataViewNext}");
-                exit;
+                return \Yii::$app->getResponse()->redirect(Url::to("?r=admin/users/users-tools&dataViewId={$dataViewNext}"), 303);
             case 'gii':
-                header("Location:?r=admin/users/users-gii&dataViewId={$dataViewNext}");
-                exit;
+                return \Yii::$app->getResponse()->redirect(Url::to("?r=admin/users/users-gii&dataViewId={$dataViewNext}"), 303);
             default:
+                return false;
         }
     }
 }
