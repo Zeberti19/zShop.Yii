@@ -64,12 +64,23 @@ class UsersToolsController extends Controller
         return $this->actionUsersTableShow('self');
     }
 
-    public function actionUserEdit($id, $surname, $first_name, $patronymic)
+    /**
+     * @param array $data
+     *        Всех набор данных, необходимый для редактирования пользователя
+     * @return string
+     */
+    public function actionUserEdit(array $data)
     {
+        //TODO не использовать массив данных для передачи новых значений свойств объект, вместо этого передать отдельные параметры
+        //В данном случаи, массив данных используется просто для разнообразия, хотя наглядней было бы сделать передачу отдельного параметра для каждого свойства
+        $id=$data['id'];
+        $surname=$data['surname'];
+        $firstname=$data['firstname'];
+        $patronymic=$data['patronymic'];
         /**@var yii\db\ActiveRecord $UserEdit */
         $UserEdit = Users::findOne(["id" => $id]);
         $UserEdit->surname = $surname;
-        $UserEdit->first_name = $first_name;
+        $UserEdit->first_name = $firstname;
         $UserEdit->patronymic = $patronymic;
         //TODO добавить подробный вывод ошибок
         if ( !$UserEdit->validate() or !$UserEdit->save()) return "Возникла ошибка при редактировании пользователя";

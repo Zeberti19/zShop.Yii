@@ -104,15 +104,15 @@ use \yii\bootstrap\ActiveForm;
             { ?>
                 <form action="/">
                     <input type="hidden" name="r" value="admin/users/users-tools/user-edit">
-                    <input id="admin-user-edit-window__input_id" type="hidden" name="id" value="">
+                    <input id="admin-user-edit-window__input_id" type="hidden" name="data[id]" value="">
                     <div class="admin-user-edit-window__label-container">
-                        <label for="admin_user_edit_window_surname_field" class="admin-user-edit-window__label">Фамиилия:<input id="admin_user_edit_window_surname_field" name="surname" class="admin-user-edit-window__field" type="text"></label>
+                        <label for="admin_user_edit_window_surname_field" class="admin-user-edit-window__label">Фамиилия:<input id="admin_user_edit_window_surname_field" name="data[surname]" class="admin-user-edit-window__field" type="text"></label>
                     </div>
                     <div class="admin-user-edit-window__label-container">
-                        <label for="admin_user_edit_window_firstname_field" class="admin-user-edit-window__label">Имя:<input id="admin_user_edit_window_firstname_field" name="first_name" class="admin-user-edit-window__field" type="text"></label>
+                        <label for="admin_user_edit_window_firstname_field" class="admin-user-edit-window__label">Имя:<input id="admin_user_edit_window_firstname_field" name="data[firstname]" class="admin-user-edit-window__field" type="text"></label>
                     </div>
                     <div class="admin-user-edit-window__label-container">
-                        <label for="admin_user_edit_window_patronymic_field" class="admin-user-edit-window__label">Отчество:<input id="admin_user_edit_window_patronymic_field" name="patronymic" class="admin-user-edit-window__field" type="text"></label>
+                        <label for="admin_user_edit_window_patronymic_field" class="admin-user-edit-window__label">Отчество:<input id="admin_user_edit_window_patronymic_field" name="data[patronymic]" class="admin-user-edit-window__field" type="text"></label>
                     </div>
                     <div class="admin-user-edit-window__save-button"><input type="submit" name="create" value="Сохранить"></div>
                 </form>
