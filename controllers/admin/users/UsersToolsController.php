@@ -1,6 +1,8 @@
 <?php
 namespace app\controllers\admin\users;
 
+use app\components\helpers\ErrorHandler;
+use app\components\helpers\Logging;
 use yii;
 use yii\web\Controller;
 use app\models\Users;
@@ -145,5 +147,70 @@ class UsersToolsController extends Controller
         $this->view->registerJs('Admin.dataViewId="' .str_replace('"','\"',$dataViewId) .'"');
         //
         return $this->render('index.php', $dataRender);
+    }
+
+    public function beforeAction($Action)
+    {
+        if (!parent::beforeAction($Action)) return false;
+        $mesPref="Администрирование. Пользователи. ";
+        switch ($Action->id)
+        {
+            case 'user-create':
+                $dataViewId=Yii::$app->request->get('dataViewId');
+                if ('self'==$dataViewId)
+                {
+                    $id=Yii::$app->request->get('id');
+                    $surname=Yii::$app->request->get('surname');
+                    $firstname=Yii::$app->request->get('first_name');
+                    $patronymic=Yii::$app->request->get('patronymic');
+                }
+                else
+                {
+                    $data=Yii::$app->request->post('Users');
+                    $id=$data['id'];
+                    $surname=$data['surname'];
+                    $firstname=$data['first_name'];
+                    $patronymic=$data['patronymic'];
+                }
+                $params=(is_null($id) or ''===$id)? '' : "id={$id}";
+                $params.=' surname=' .$surname;
+                $params.=' firstname=' .$firstname;
+                $params.=' patronymic=' .$patronymic;
+                Logging::write("{$mesPref}Получен запрос на создание пользователя. Параметры: {$params}" );
+                break;
+            case 'user-edit':
+                $data=Yii::$app->request->get('data');
+                $params=[];
+                foreach($data as $key=>$val) $params[]="data[{$key}]={$val}";
+                $params=implode(' ', $params);
+                Logging::write("{$mesPref}Получен запрос на редактирование пользователя. Параметры: {$params}" );
+                break;
+            case 'user-delete':
+                $params='id=' .Yii::$app->request->get('id');
+                Logging::write("{$mesPref}Получен запрос на удаление пользователя. Параметры: {$params}" );
+                break;
+            default:
+        }
+        return true;
+    }
+
+    public function afterAction($Action,$result)
+    {
+        $result=parent::afterAction($Action,$result);
+        $mesPref="Администрирование. Пользователи. ";
+        switch($Action->id)
+        {
+            case 'user-create':
+                Logging::write("{$mesPref}Запрос на создание пользователя обработан без ошибок" );
+                break;
+            case 'user-edit':
+                Logging::write("{$mesPref}Запрос на редактирование пользователя обработан без ошибок" );
+                break;
+            case 'user-delete':
+                Logging::write("{$mesPref}Запрос на удаление пользователя обработан без ошибок" );
+                break;
+            default:
+        }
+        return $result;
     }
 }
