@@ -2,9 +2,17 @@
 
 namespace app\models;
 use yii\db\ActiveRecord;
+use Yii;
 
 class Users extends ActiveRecord
 {
+
+    public function attributeLabels()
+    {
+        //TODO добавить метки всем аттрибутам
+        return [ 'id' =>  Yii::t('app','id') ];
+    }
+
     //TODO придумать какую-нить модель, где имя таблицы действительно не совпадает с именем класса
     static public function tableName()
     {

@@ -60,7 +60,7 @@ use \yii\bootstrap\ActiveForm;
             <div>Создание нового пользователя</div>
             <?php if ('yii2'==$dataViewId): ?>
                 <?php $UserCreateForm=ActiveForm::begin(['action'=>['admin/users/users-tools/user-create', 'dataViewId' => $dataViewId, 'page' => $tablePageN]]) ?>
-                <?= $UserCreateForm->field($UserForm, 'id')->label("ИД"); ?>
+                <?= $UserCreateForm->field($UserForm, 'id'); ?>
                 <?= $UserCreateForm->field($UserForm, 'surname')->label("Фамилия"); ?>
                 <?= $UserCreateForm->field($UserForm, 'first_name')->label("Имя"); ?>
                 <?= $UserCreateForm->field($UserForm, 'patronymic')->label("Отчество"); ?>

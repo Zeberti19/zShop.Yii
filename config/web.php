@@ -9,13 +9,22 @@ $config = [
     //TODO поэксперементировать с добавлением собственного модуля или компонета в раздел начальной загрузки
     'bootstrap' => ['log','app\components\init\InitMain'],
     'aliases' => [
-        '@log_own' => '@runtime/logs', /*путь до папке, где храняться собственные логи, отличные от логов Yii2*/
+        '@app_translations' => '@app/translations', /*путь до папки с файлами, где храняться тексты переводов*/
+        '@log_own' => '@runtime/logs', /*путь до папки, где храняться собственные логи, отличные от логов Yii2*/
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
         'request' => [
             'cookieValidationKey' => 'z19Shp/kLling337.fLor-dSert_eGle',
+        ],
+        'i18n'=>[
+            'translations'=>[
+                'app'=>[
+                    'class'=>'yii\i18n\PhpMessageSource',
+                    'basePath'=>'@app_translations',
+                ]
+            ]
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
