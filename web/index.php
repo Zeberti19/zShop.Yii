@@ -6,6 +6,7 @@ defined('YII_ENV') or define('YII_ENV', 'dev');
 
 /*Сокращение наименование константы DIRECTORY_SEPARATOR*/
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+defined('PASSWORD_SALT_GLOBAL') or define('PASSWORD_SALT_GLOBAL', ':w_2e)-U@i!g.v0,');
 
 require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';

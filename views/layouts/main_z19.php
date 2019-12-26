@@ -38,18 +38,21 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Администрирование', 'url' => ['/admin/users/users-tools']],
+            (isset($_SESSION['user_privs']) and (in_array('admin_section_access',$_SESSION['user_privs'])))
+                ?['label' => 'Администрирование', 'url' => ['/admin/users/users-tools']]
+                :'',
             ['label' => 'На главную', 'url' => ['/'.Yii::$app->defaultRoute]],
             ['label' => 'О нас', 'url' => ['/deprecated/site/about']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/deprecated/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/deprecated/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
+                //TODO проверить, что будет если передать в качестве ИД строку "0"
+                (!isset($_SESSION['user_id']) or (is_null($_SESSION['user_id']) and 0 !== $_SESSION['user_id'] and '0' !== $_SESSION['user_id']) )
+                    ?(['label' => Yii::t('app','Login'), 'url' => ['/_common/auth']])
+                    : (
+                    '<li>'
+                    . Html::beginForm(['/_common/auth/logout'], 'post')
+                    . Html::submitButton(
+                        Yii::t('app','Logout') .'(' .$_SESSION['user_id'] .')',
+                        ['class' => 'btn btn-link logout']
+                    )
                 . Html::endForm()
                 . '</li>'
             )

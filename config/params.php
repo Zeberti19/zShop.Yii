@@ -2,6 +2,7 @@
 
 return [
     'adminEmail' => 'admin@example.com',
+    'authCookieExpire'=>900,//время жизни кук, отвечающих за данные авторизации пользователя
     'image_prefix' => 'https://kind-edison-2e35aa.netlify.com/',
     //'image_prefix' => 'images/',
     'hints_show' => !true, //Определяет стоит ли отображать различные подсказки для проекта

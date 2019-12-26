@@ -152,6 +152,7 @@ class UsersToolsController extends Controller
     public function beforeAction($Action)
     {
         if (!parent::beforeAction($Action)) return false;
+        if (!isset($_SESSION['user_privs']) or !in_array('admin_section_access',$_SESSION['user_privs'])) return false;
         $mesPref="Администрирование. Пользователи. ";
         switch ($Action->id)
         {
