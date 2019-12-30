@@ -15,6 +15,7 @@ Admin.userTableRowSelectCls='users-table_admin__row_selected';
 Admin.userTableCellSurnameCls='users-table_admin__cell_surname';
 Admin.userTableCellFirstNameCls='users-table_admin__cell_first_name';
 Admin.userTableCellPatronymicCls='users-table_admin__cell_patronymic';
+Admin.userTableCellLoginCls='users-table_admin__cell_login';
 Admin.userCreateWindow=new Object();
 Admin.userCreateWindow.id='admin_user_create_window';
 Admin.userEditWindow=new Object();
@@ -22,6 +23,7 @@ Admin.userEditWindow.id='admin_user_edit_window';
 Admin.userEditWindow.surnameFieldId='admin_user_edit_window_surname_field';
 Admin.userEditWindow.firstnameFieldId='admin_user_edit_window_firstname_field';
 Admin.userEditWindow.patronymicFieldId='admin_user_edit_window_patronymic_field';
+Admin.userEditWindow.loginFieldId='admin_user_edit_window_login_field';
 Admin.userEditWindow.inputId='admin-user-edit-window__input_id';
 Admin.userEditWindow.containerForId='admin_user_edit_window_head_id_container';
 //методы
@@ -54,6 +56,7 @@ Admin.userEditWindow.show=function()
         document.getElementById(Admin.userEditWindow.surnameFieldId).value=rowSelected.getElementsByClassName(Admin.userTableCellSurnameCls)[0].textContent;
         document.getElementById(Admin.userEditWindow.firstnameFieldId).value=rowSelected.getElementsByClassName(Admin.userTableCellFirstNameCls)[0].textContent;
         document.getElementById(Admin.userEditWindow.patronymicFieldId).value=rowSelected.getElementsByClassName(Admin.userTableCellPatronymicCls)[0].textContent;
+        document.getElementById(Admin.userEditWindow.loginFieldId).value=rowSelected.getElementsByClassName(Admin.userTableCellLoginCls)[0].textContent;
         EditWindow.style.display='block';
     }
     else if ('yii2'==Admin.dataViewId)

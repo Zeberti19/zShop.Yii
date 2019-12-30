@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\components\helpers\Cookie;
+use app\components\helpers\Encode;
 use Exception;
 use Yii;
 use yii\db\ActiveRecord;
@@ -42,12 +43,13 @@ class Users extends ActiveRecord
             throw new Exception($errMesPref.'Логин или пароль не указаны ни в параметрах функции "auth", ни в куках',0);
         $User=static::findOne(['login'=>$login]);
         if (!$User) throw new Exception($errMesPref.'Указанный логин не существует',1);
-        $passHash=$passwordIsHash? $password : sha1($password.$User->salt.PASSWORD_SALT_GLOBAL);
+        $passHash=$passwordIsHash? $password : Encode::passwordEncode($password,$User->salt);
         $User=static::findOne(['login'=>$login,'password'=>$passHash]);
         if (!$User) throw new Exception($errMesPref.'Неверный пароль',2);
         //
         if (session_status() != PHP_SESSION_ACTIVE) session_start();
         $_SESSION['user_id']=$User->id;
+        $_SESSION['user_login']=$User->login;
         $rolesId=[];
         $privsId=[];
         foreach($User->roles as $Role) $rolesId[]=$Role->id;
@@ -83,18 +85,21 @@ class Users extends ActiveRecord
         session_destroy();
     }
 
-    //TODO придумать какую-нить модель, где имя таблицы действительно не совпадает с именем класса
-    static public function tableName()
-    {
-        return "users";
-    }
+//    public function scenarios()
+//    {
+//        //TODO поэксперементировать со сценариями
+//        $scenarios=parent::scenarios();
+//        $scenarios[static::SCENARIO_CRUD]=['id','surname', 'patronymic', 'first_name', 'login', 'password'];
+//        $scenarios[static::SCENARIO_SHOW]=[];
+//        return $scenarios;
+//    }
 
     public function rules()
     {
         return [
             //TODO добавить разные правила для разных сценариев (создание, редактирование, удаление и т.п.)
-            [ 'id', 'safe' ],
-            [ ['surname', 'patronymic', 'first_name'], 'required' ]
+            [ 'id', 'safe', 'on'=>static::SCENARIO_CRUD ],
+            [ ['surname', 'patronymic', 'first_name', 'login', 'password', 'salt'], 'required', 'on'=>static::SCENARIO_CRUD ]
         ];
     }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace app\controllers\admin\users;
 
-use app\components\helpers\ErrorHandler;
+use app\components\helpers\Encode;
 use app\components\helpers\Logging;
 use yii;
 use yii\web\Controller;
@@ -30,16 +30,26 @@ class UsersToolsController extends Controller
             $surname=Yii::$app->request->get('surname');
             $firstname=Yii::$app->request->get('first_name');
             $patronymic=Yii::$app->request->get('patronymic');
-            $UserNew = new Users(["id" => $id, "surname" => $surname, "first_name" => $firstname, "patronymic" => $patronymic]);
+            $login=Yii::$app->request->get('login');
+            $password=Yii::$app->request->get('password');
+            $salt=Encode::getSaltNew();
+            $password=Encode::passwordEncode($password,$salt);
+
+            $UserNew = new Users(['scenario'=> Users::SCENARIO_CRUD, "id" => $id, "surname" => $surname,
+                "first_name" => $firstname, "patronymic" => $patronymic, "login"=>$login, "password"=>$password,"salt"=>$salt]);
         }
         elseif ('yii2'==$dataViewId)
         {
-            $UserNew = new Users();
+            $UserNew = new Users(['scenario'=> Users::SCENARIO_CRUD]);
             $UserNew->load(Yii::$app->request->post());
         }
         //TODO добавить подробный вывод ошибок
         if ( !$UserNew ) throw new \Exception($mesPref.'Объект "Пользователь" (UserNew) не смог быть создан. Сохранение невозможно');
-        if ( !$UserNew->validate() ) throw new \Exception($mesPref.'Новосозданный объект "Пользователь" (UserNew) не прощел валидацию параметров. Сохранение отмененно');
+        if ( !$UserNew->validate() )
+        {
+            $errorsMes=implode(" ", $UserNew->getErrorSummary(true));
+            throw new \Exception($mesPref.'Новосозданный объект "Пользователь" (UserNew) не прощел валидацию параметров. Сохранение отмененно. Описание ошибок: ' .$errorsMes);
+        }
         if ( !$UserNew->save(false) ) throw new \Exception($mesPref.'Новосозданный объект "Пользователь" (UserNew) не смог быть сохранен');
         if (!$UserNew->id)
         {
@@ -77,7 +87,7 @@ class UsersToolsController extends Controller
         //В данном случаи, массив данных используется просто для разнообразия, хотя наглядней было бы сделать передачу отдельного параметра для каждого свойства
         $id=$data['id'];
         $surname=$data['surname'];
-        $firstname=$data['firstname'];
+        $firstname=$data['first_name'];
         $patronymic=$data['patronymic'];
         /**@var yii\db\ActiveRecord $UserEdit */
         $UserEdit = Users::findOne(["id" => $id]);
@@ -123,7 +133,7 @@ class UsersToolsController extends Controller
         {
             case 'yii2':
                 $dataViewName='Yii2 инструменты';
-                $UserForm=new Users();
+                $UserForm=new Users(['scenario'=> Users::SCENARIO_CRUD]);
                 $dataRender['UserForm']=$UserForm;
                 //
                 $Pagination=new yii\data\Pagination(['totalCount'=>$Users->count(), 'defaultPageSize'=>10]);

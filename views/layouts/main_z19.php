@@ -50,7 +50,7 @@ AppAsset::register($this);
                     '<li>'
                     . Html::beginForm(['/_common/auth/logout'], 'post')
                     . Html::submitButton(
-                        Yii::t('app','Logout') .'(' .$_SESSION['user_id'] .')',
+                        Yii::t('app','Logout') .'(' .$_SESSION['user_login'] .')',
                         ['class' => 'btn btn-link logout']
                     )
                 . Html::endForm()

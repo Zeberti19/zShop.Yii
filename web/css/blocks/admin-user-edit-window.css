@@ -9,6 +9,9 @@
     top: 50%;
     min-height: 22rem;
     min-width: 36rem;
+    max-height: 64rem;
+    max-width: 72rem;
+    overflow: auto;
     padding: 2rem;
     position: absolute;
     transform: translate(-50%,-50%);
@@ -17,20 +20,33 @@
 {
     font-weight: bold;
 }
-.admin-user-edit-window__label
+.admin-user-edit-window__fields-container
 {
     display: block;
-}
-.admin-user-edit-window__label-container
-{
-    margin-top: 1rem;
+    float: left;
 }
 .admin-user-edit-window__field
 {
-    margin-left: 2rem;
+    display: block;
+    height: 3rem;
+    margin: 1rem 0 0 2rem;
+    min-width: 20rem;
+}
+.admin-user-edit-window__label
+{
+    display: block;
+    height: 3rem;
+    margin: 1rem 0 0 0;
+    padding: 0.5rem 0 0 0;
+}
+.admin-user-edit-window__labels-container
+{
+    display: block;
+    float: left;
 }
 .admin-user-edit-window__save-button
 {
-    margin-top: 2rem;
+    clear: both;
+    padding-top: 2rem;
     text-align: right;
 }
