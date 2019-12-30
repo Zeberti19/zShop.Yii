@@ -34,12 +34,13 @@ use \yii\bootstrap\ActiveForm;
                 <thead>
                 <tr class="users-table_admin__row users-table_admin__line_thead users-table_admin__line_before-tools">
                     <th class="users-table_admin__cell">ИД</th>
+                    <th class="users-table_admin__cell">Логин</th>
                     <th class="users-table_admin__cell">Фамилия</th>
                     <th class="users-table_admin__cell">Имя</th>
                     <th class="users-table_admin__cell">Отчество</th>
                 </tr>
                 <tr class="users-table_admin__row users-table_admin__line_tools">
-                    <td class="users-table_admin__cell" colspan="2"><span class="users-table_admin__tool" onclick="Admin.userCreateWindow.show()">Создать</span></td>
+                    <td class="users-table_admin__cell" colspan="3"><span class="users-table_admin__tool" onclick="Admin.userCreateWindow.show()">Создать</span></td>
                     <td class="users-table_admin__cell"><span class="users-table_admin__tool" onclick="Admin.userEditWindow.show()">Редактировать</span></td>
                     <td class="users-table_admin__cell"><span class="users-table_admin__tool" onclick="Admin.userDelete()">Удалить</span></td>
                 </tr>
@@ -48,6 +49,7 @@ use \yii\bootstrap\ActiveForm;
                 <?php foreach($Users as $n=>$User):?>
                     <tr data-user_id="<?= Html::encode( $User->id ); ?>" class="users-table_admin__row <?= (0==$n)? 'users-table_admin__line_after-tools':'' ?>" onclick="Admin.userTableTrSelect(this)">
                         <td class="users-table_admin__cell users-table_admin__cell_id"><?= Html::encode( $User->id );?></td>
+                        <td class="users-table_admin__cell users-table_admin__cell_login"><?= Html::encode( $User->login ); ?></td>
                         <td class="users-table_admin__cell users-table_admin__cell_surname"><?= Html::encode( $User->surname );?></td>
                         <td class="users-table_admin__cell users-table_admin__cell_first_name"><?= Html::encode( $User->first_name );?></td>
                         <td class="users-table_admin__cell users-table_admin__cell_patronymic"><?= Html::encode( $User->patronymic ); ?></td>
@@ -64,6 +66,8 @@ use \yii\bootstrap\ActiveForm;
                 <?= $UserCreateForm->field($UserForm, 'surname')->label("Фамилия"); ?>
                 <?= $UserCreateForm->field($UserForm, 'first_name')->label("Имя"); ?>
                 <?= $UserCreateForm->field($UserForm, 'patronymic')->label("Отчество"); ?>
+                <?= $UserCreateForm->field($UserForm, 'login')->label("Логин"); ?>
+                <?= $UserCreateForm->field($UserForm, 'password')->label("Пароль"); ?>
                 <div class="form-group">
                     <?= Html::submitButton('Создать', ['class'=>'btn btn-primary']); ?>
                 </div>
@@ -84,6 +88,12 @@ use \yii\bootstrap\ActiveForm;
                     </div>
                     <div class="admin-user-create-window__label-container">
                         <label for="admin_user_create_window_patronymic_field" class="admin-user-create-window__label">Отчество*:<input id="admin_user_create_window_patronymic_field" name="patronymic" class="admin-user-create-window__field" type="text"></label>
+                    </div>
+                    <div class="admin-user-create-window__label-container">
+                        <label for="admin_user_create_window_login_field" class="admin-user-create-window__label">Логин*:<input id="admin_user_create_window_login_field" name="login" class="admin-user-create-window__field" type="text"></label>
+                    </div>
+                    <div class="admin-user-create-window__label-container">
+                        <label for="admin_user_create_window_password_field" class="admin-user-create-window__label">Пароль*:<input id="admin_user_create_window_password_field" name="password" class="admin-user-create-window__field" type="password"></label>
                     </div>
                     <div class="admin-user-create-window__create-button"><input type="submit" name="create" value="Создать"></div>
                     <div class="admin-user-create-window__comments">
@@ -113,6 +123,12 @@ use \yii\bootstrap\ActiveForm;
                     </div>
                     <div class="admin-user-edit-window__label-container">
                         <label for="admin_user_edit_window_patronymic_field" class="admin-user-edit-window__label">Отчество:<input id="admin_user_edit_window_patronymic_field" name="data[patronymic]" class="admin-user-edit-window__field" type="text"></label>
+                    </div>
+                    <div class="admin-user-edit-window__label-container">
+                        <label for="admin_user_edit_window_login_field" class="admin-user-edit-window__label">Логин:<input id="admin_user_edit_window_login_field" name="data[login]" class="admin-user-edit-window__field" type="text"></label>
+                    </div>
+                    <div class="admin-user-edit-window__label-container">
+                        <label for="admin_user_edit_window_password_field" class="admin-user-edit-window__label">Пароль:<input id="admin_user_edit_window_password_field" name="data[password]" class="admin-user-edit-window__field" type="password"></label>
                     </div>
                     <div class="admin-user-edit-window__save-button"><input type="submit" name="create" value="Сохранить"></div>
                 </form>

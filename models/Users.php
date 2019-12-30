@@ -83,18 +83,21 @@ class Users extends ActiveRecord
         session_destroy();
     }
 
-    //TODO придумать какую-нить модель, где имя таблицы действительно не совпадает с именем класса
-    static public function tableName()
-    {
-        return "users";
-    }
+//    public function scenarios()
+//    {
+//        //TODO поэксперементировать со сценариями
+//        $scenarios=parent::scenarios();
+//        $scenarios[static::SCENARIO_CRUD]=['id','surname', 'patronymic', 'first_name', 'login', 'password'];
+//        $scenarios[static::SCENARIO_SHOW]=[];
+//        return $scenarios;
+//    }
 
     public function rules()
     {
         return [
             //TODO добавить разные правила для разных сценариев (создание, редактирование, удаление и т.п.)
-            [ 'id', 'safe' ],
-            [ ['surname', 'patronymic', 'first_name'], 'required' ]
+            [ 'id', 'safe', 'on'=>static::SCENARIO_CRUD ],
+            [ ['surname', 'patronymic', 'first_name', 'login', 'password', 'salt'], 'required', 'on'=>static::SCENARIO_CRUD ]
         ];
     }
 }
