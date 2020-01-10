@@ -15,8 +15,8 @@ class InitMain implements BootstrapInterface
     {
         ErrorHandler::$logPath=\Yii::getAlias('@log_own') .DS .'err_log.log';
         Logging::$logPath=\Yii::getAlias('@log_own') .DS .'app_log_own.log';
+        //восстановление сессии, если куки сохранились, но браузер уже был закрыт
         if (session_status() != PHP_SESSION_ACTIVE) session_start();
-        if (!isset($_SESSION['user_id']) or (is_null($_SESSION['user_id']) and 0!==$_SESSION['user_id'] and '0'!==$_SESSION['user_id']))
-            try {Users::auth();}catch(Exception $Exception){};
+        if (!isset($_SESSION['user_id'])) try {Users::auth();}catch(Exception $Exception){};
     }
 }

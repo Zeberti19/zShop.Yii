@@ -23,6 +23,10 @@ $config = [
                 'app'=>[
                     'class'=>'yii\i18n\PhpMessageSource',
                     'basePath'=>'@app_translations',
+                ],
+                'userAuthForms'=>[
+                    'class'=>'yii\i18n\PhpMessageSource',
+                    'basePath'=>'@app_translations',
                 ]
             ]
         ],

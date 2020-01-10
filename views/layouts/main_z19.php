@@ -43,9 +43,8 @@ AppAsset::register($this);
                 :'',
             ['label' => 'На главную', 'url' => ['/'.Yii::$app->defaultRoute]],
             ['label' => 'О нас', 'url' => ['/deprecated/site/about']],
-                //TODO проверить, что будет если передать в качестве ИД строку "0"
-                (!isset($_SESSION['user_id']) or (is_null($_SESSION['user_id']) and 0 !== $_SESSION['user_id'] and '0' !== $_SESSION['user_id']) )
-                    ?(['label' => Yii::t('app','Login'), 'url' => ['/_common/auth']])
+                !isset($_SESSION['user_id'])
+                    ?(['label' => Yii::t('userAuthForms','Login'), 'url' => ['/_common/auth']])
                     : (
                     '<li>'
                     . Html::beginForm(['/_common/auth/logout'], 'post')

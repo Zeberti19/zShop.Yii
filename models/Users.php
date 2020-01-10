@@ -10,17 +10,41 @@ use yii\db\ActiveRecord;
 
 class Users extends ActiveRecord
 {
-    const SCENARIO_CRUD='CRUD';
-    const SCENARIO_SHOW='show';
+    /**
+     * Сценарий используемый при создании пользователя через раздел "Администрирование"
+     */
+    const SCENARIO_CREATE_BY_ADMIN='CREATE_BY_ADMIN';
+
+    /**
+     * Сценарий используемый при создании пользователя во время его регистрации
+     */
+    const SCENARIO_CREATE_BY_USER='CREATE_BY_USER';
+
+    /**
+     * Сценарий используемый при редактировании пользователя
+     */
+    const SCENARIO_EDIT='EDIT';
+
+    /**
+     * Сценарий используемый при отображении формы авторизации пользователя
+     */
+    const SCENARIO_LOGIN_FORM='LOGIN';
+
+    /**
+     * Сценарий используемый при отображении формы регистрации пользователя
+     */
+    const SCENARIO_REGISTER_FORM='REGISTER';
 
     protected $privsMas=null;
 
     public function attributeLabels()
     {
-        //TODO добавить метки всем аттрибутам
-        return [ 'id' =>  Yii::t('app','id'),
-                 'login' =>  Yii::t('app','login'),
-                 'password' =>  Yii::t('app','password'),
+        return [ 'id' =>  Yii::t('app','ID'),
+                'surname' =>  Yii::t('app','Surname'),
+                'first_name' =>  Yii::t('app','First Name'),
+                'patronymic' =>  Yii::t('app','Patronymic'),
+                'login' =>  Yii::t('app','Login'),
+                'password' =>  Yii::t('app','Password'),
         ];
     }
 
@@ -38,7 +62,7 @@ class Users extends ActiveRecord
         $login=(!$login and isset($_COOKIE['user_login']))? $_COOKIE['user_login'] : $login;
         if(!$password and $passwordIsHash) $password=isset($_COOKIE['user_login'])?$_COOKIE['user_password']:$password;
         //TODO проверить, что будет если передать логин или пароль в виде строки "0"
-        if ((!$login and 0 !==$login )
+        if ((!$login and 0 !==$login and '0' !==$login)
             or !$password)
             throw new Exception($errMesPref.'Логин или пароль не указаны ни в параметрах функции "auth", ни в куках',0);
         $User=static::findOne(['login'=>$login]);
@@ -46,19 +70,7 @@ class Users extends ActiveRecord
         $passHash=$passwordIsHash? $password : Encode::passwordEncode($password,$User->salt);
         $User=static::findOne(['login'=>$login,'password'=>$passHash]);
         if (!$User) throw new Exception($errMesPref.'Неверный пароль',2);
-        //
-        if (session_status() != PHP_SESSION_ACTIVE) session_start();
-        $_SESSION['user_id']=$User->id;
-        $_SESSION['user_login']=$User->login;
-        $rolesId=[];
-        $privsId=[];
-        foreach($User->roles as $Role) $rolesId[]=$Role->id;
-        foreach($User->privs as $Priv) $privsId[]=$Priv->id;
-        $_SESSION['user_roles']=$rolesId;
-        $_SESSION['user_privs']=$privsId;
-        //
-        Cookie::set('user_login',$login,Yii::$app->params['authCookieExpire']);
-        Cookie::set('user_password',$passHash,Yii::$app->params['authCookieExpire']);
+        $User->sessionSave();
     }
 
     public function getRoles()
@@ -85,21 +97,39 @@ class Users extends ActiveRecord
         session_destroy();
     }
 
-//    public function scenarios()
-//    {
-//        //TODO поэксперементировать со сценариями
-//        $scenarios=parent::scenarios();
-//        $scenarios[static::SCENARIO_CRUD]=['id','surname', 'patronymic', 'first_name', 'login', 'password'];
-//        $scenarios[static::SCENARIO_SHOW]=[];
-//        return $scenarios;
-//    }
+    //TODO придумать какой-нить функционал, где будет востребована функция scenarious
+    public function scenarios()
+    {
+        $scenarios=parent::scenarios();
+        return $scenarios;
+    }
+
+    /**
+     * Сохраняет данные о пользователе как о текущем активном пользователе в сессию
+     */
+    public function sessionSave()
+    {
+        if (session_status() != PHP_SESSION_ACTIVE) session_start();
+        $_SESSION['user_id']=$this->id;
+        $_SESSION['user_login']=$this->login;
+        $rolesId=[];
+        $privsId=[];
+        foreach($this->roles as $Role) $rolesId[]=$Role->id;
+        foreach($this->privs as $Priv) $privsId[]=$Priv->id;
+        $_SESSION['user_roles']=$rolesId;
+        $_SESSION['user_privs']=$privsId;
+        //
+        Cookie::set('user_login',$this->login,Yii::$app->params['authCookieExpire']);
+        Cookie::set('user_password',$this->password,Yii::$app->params['authCookieExpire']);
+    }
 
     public function rules()
     {
         return [
-            //TODO добавить разные правила для разных сценариев (создание, редактирование, удаление и т.п.)
-            [ 'id', 'safe', 'on'=>static::SCENARIO_CRUD ],
-            [ ['surname', 'patronymic', 'first_name', 'login', 'password', 'salt'], 'required', 'on'=>static::SCENARIO_CRUD ]
+            [ 'id', 'safe', 'on'=>[static::SCENARIO_CREATE_BY_ADMIN] ],
+            [ ['surname', 'patronymic', 'first_name', 'login', 'password'], 'required', 'on'=>[static::SCENARIO_CREATE_BY_ADMIN,static::SCENARIO_CREATE_BY_USER,static::SCENARIO_EDIT] ],
+            [ ['surname', 'patronymic', 'first_name', 'login', 'password'], 'required', 'on'=>static::SCENARIO_REGISTER_FORM ],
+            [ ['login', 'password'], 'required', 'on'=>[static::SCENARIO_LOGIN_FORM] ],
         ];
     }
 }

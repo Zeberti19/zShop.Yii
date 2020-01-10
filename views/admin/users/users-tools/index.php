@@ -63,11 +63,11 @@ use \yii\bootstrap\ActiveForm;
             <?php if ('yii2'==$dataViewId): ?>
                 <?php $UserCreateForm=ActiveForm::begin(['action'=>['admin/users/users-tools/user-create', 'dataViewId' => $dataViewId, 'page' => $tablePageN]]) ?>
                 <?= $UserCreateForm->field($UserForm, 'id'); ?>
-                <?= $UserCreateForm->field($UserForm, 'surname')->label("Фамилия"); ?>
-                <?= $UserCreateForm->field($UserForm, 'first_name')->label("Имя"); ?>
-                <?= $UserCreateForm->field($UserForm, 'patronymic')->label("Отчество"); ?>
-                <?= $UserCreateForm->field($UserForm, 'login')->label("Логин"); ?>
-                <?= $UserCreateForm->field($UserForm, 'password')->label("Пароль"); ?>
+                <?= $UserCreateForm->field($UserForm, 'surname')->label("Фамилия")->textInput(); ?>
+                <?= $UserCreateForm->field($UserForm, 'first_name')->label("Имя")->textInput(); ?>
+                <?= $UserCreateForm->field($UserForm, 'patronymic')->label("Отчество")->textInput(); ?>
+                <?= $UserCreateForm->field($UserForm, 'login')->label("Логин")->textInput(); ?>
+                <?= $UserCreateForm->field($UserForm, 'password')->label("Пароль")->passwordInput(); ?>
                 <div class="form-group">
                     <?= Html::submitButton('Создать', ['class'=>'btn btn-primary']); ?>
                 </div>

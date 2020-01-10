@@ -35,13 +35,17 @@ class UsersToolsController extends Controller
             $salt=Encode::getSaltNew();
             $password=Encode::passwordEncode($password,$salt);
 
-            $UserNew = new Users(['scenario'=> Users::SCENARIO_CRUD, "id" => $id, "surname" => $surname,
+            $UserNew = new Users(['scenario'=> Users::SCENARIO_CREATE_BY_ADMIN, "id" => $id, "surname" => $surname,
                 "first_name" => $firstname, "patronymic" => $patronymic, "login"=>$login, "password"=>$password,"salt"=>$salt]);
         }
         elseif ('yii2'==$dataViewId)
         {
-            $UserNew = new Users(['scenario'=> Users::SCENARIO_CRUD]);
+            $UserNew = new Users(['scenario'=> Users::SCENARIO_CREATE_BY_ADMIN]);
+            //TODO разобраться почему здесь использую функцию "post", когда данные передаются через метод "GET"
             $UserNew->load(Yii::$app->request->post());
+            $salt=Encode::getSaltNew();
+            $UserNew->salt=$salt;
+            $UserNew->password=Encode::passwordEncode($UserNew->password,$salt);
         }
         //TODO добавить подробный вывод ошибок
         if ( !$UserNew ) throw new \Exception($mesPref.'Объект "Пользователь" (UserNew) не смог быть создан. Сохранение невозможно');
@@ -79,23 +83,30 @@ class UsersToolsController extends Controller
     /**
      * @param array $data
      *        Всех набор данных, необходимый для редактирования пользователя
+     *        (В данном случаи, массив данных используется просто для разнообразия, хотя наглядней было бы сделать
+     *        передачу отдельного параметра для каждого свойства)
      * @return string
+     * @throws \Exception
      */
     public function actionUserEdit(array $data)
     {
-        //TODO не использовать массив данных для передачи новых значений свойств объект, вместо этого передать отдельные параметры
-        //В данном случаи, массив данных используется просто для разнообразия, хотя наглядней было бы сделать передачу отдельного параметра для каждого свойства
-        $id=$data['id'];
-        $surname=$data['surname'];
-        $firstname=$data['first_name'];
-        $patronymic=$data['patronymic'];
+        $mesPref='Редактирование пользователя. ';
+        //
         /**@var yii\db\ActiveRecord $UserEdit */
-        $UserEdit = Users::findOne(["id" => $id]);
-        $UserEdit->surname = $surname;
-        $UserEdit->first_name = $firstname;
-        $UserEdit->patronymic = $patronymic;
-        //TODO добавить подробный вывод ошибок
-        if ( !$UserEdit->validate() or !$UserEdit->save()) return "Возникла ошибка при редактировании пользователя";
+        $UserEdit = Users::findOne(["id" => $data['id']]);
+        $UserEdit->scenario=Users::SCENARIO_EDIT;
+        $UserEdit->surname = $data['surname'];
+        $UserEdit->first_name = $data['first_name'];
+        $UserEdit->patronymic = $data['patronymic'];
+        $UserEdit->login = $data['login'];
+        if ( !$UserEdit->validate() )
+        {
+            $errorsMes=implode(" ", $UserEdit->getErrorSummary(true));
+            throw new \Exception($mesPref.'Изменный объект "Пользователь" (UserEdit) не прощел валидацию параметров. Редактирование отмененно. Описание ошибок: ' .$errorsMes);
+        }
+        //TODO добавить обработку ошибок баз данных
+        if ( !$UserEdit->save(false))
+            throw new \Exception($mesPref.'Измененный объект "Пользователь" (UserEdit) не удалось сохранить. Редактирование отмененно');
 
         return $this->actionUsersTableShow('self');
     }
@@ -133,7 +144,7 @@ class UsersToolsController extends Controller
         {
             case 'yii2':
                 $dataViewName='Yii2 инструменты';
-                $UserForm=new Users(['scenario'=> Users::SCENARIO_CRUD]);
+                $UserForm=new Users(['scenario'=> Users::SCENARIO_CREATE_BY_ADMIN]);
                 $dataRender['UserForm']=$UserForm;
                 //
                 $Pagination=new yii\data\Pagination(['totalCount'=>$Users->count(), 'defaultPageSize'=>10]);
