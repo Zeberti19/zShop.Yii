@@ -97,10 +97,10 @@ class Users extends ActiveRecord
         session_destroy();
     }
 
-    //TODO придумать какой-нить функционал, где будет востребована функция scenarious
     public function scenarios()
     {
         $scenarios=parent::scenarios();
+        $scenarios[static::SCENARIO_CREATE_BY_USER]=['surname', 'patronymic', 'first_name', 'login', 'password','!salt'];
         return $scenarios;
     }
 
@@ -127,7 +127,7 @@ class Users extends ActiveRecord
     {
         return [
             [ 'id', 'safe', 'on'=>[static::SCENARIO_CREATE_BY_ADMIN] ],
-            [ ['surname', 'patronymic', 'first_name', 'login', 'password'], 'required', 'on'=>[static::SCENARIO_CREATE_BY_ADMIN,static::SCENARIO_CREATE_BY_USER,static::SCENARIO_EDIT] ],
+            [ ['surname', 'patronymic', 'first_name', 'login', 'password', 'salt'], 'required', 'on'=>[static::SCENARIO_CREATE_BY_ADMIN,static::SCENARIO_CREATE_BY_USER,static::SCENARIO_EDIT] ],
             [ ['surname', 'patronymic', 'first_name', 'login', 'password'], 'required', 'on'=>static::SCENARIO_REGISTER_FORM ],
             [ ['login', 'password'], 'required', 'on'=>[static::SCENARIO_LOGIN_FORM] ],
         ];

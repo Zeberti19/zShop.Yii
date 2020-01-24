@@ -58,14 +58,14 @@ class AuthController extends Controller
         $mesPref='Регистрация нового пользователя. ';
         //
         $UserNew=new Users(['scenario'=>Users::SCENARIO_CREATE_BY_USER]);
-        $UserNew->load(Yii::$app->request->post());
+        $UserNew->attributes=Yii::$app->request->post('Users');
+        $UserNew->salt=Encode::getSaltNew();
+        $UserNew->password=Encode::passwordEncode($UserNew->password,$UserNew->salt);
         if ( !$UserNew->validate() )
         {
             $errorsMes=implode(" ", $UserNew->getErrorSummary(true));
             throw new \Exception($mesPref.'Новосозданный объект "Пользователь" (UserNew) не прощел валидацию параметров. Сохранение отмененно. Описание ошибок: ' .$errorsMes);
         }
-        $UserNew->salt=Encode::getSaltNew();
-        $UserNew->password=Encode::passwordEncode($UserNew->password,$UserNew->salt);
         if ( !$UserNew->save(false) ) throw new \Exception($mesPref.'Новосозданный объект "Пользователь" (UserNew) не смог быть сохранен');
         $UserNew->sessionSave();
         //
