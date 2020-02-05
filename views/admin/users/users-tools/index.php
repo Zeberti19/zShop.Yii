@@ -11,6 +11,34 @@
 use yii\helpers\Html;
 use \yii\bootstrap\ActiveForm;
 ?>
+<?php //TODO работа с блоками добавлена только для эксперемента, а так они здесь не нужны ?>
+<?php if ('yii2'==$dataViewId): ?>
+    <?php
+    $this->beginBlock('user_create_window_yii2');
+    $UserCreateForm=ActiveForm::begin(['action'=>['admin/users/users-tools/user-create', 'dataViewId' => $dataViewId, 'page' => $tablePageN]])
+    ?>
+    <?= $UserCreateForm->field($UserForm, 'id'); ?>
+    <?= $UserCreateForm->field($UserForm, 'surname')->label("Фамилия")->textInput(); ?>
+    <?= $UserCreateForm->field($UserForm, 'first_name')->label("Имя")->textInput(); ?>
+    <?= $UserCreateForm->field($UserForm, 'patronymic')->label("Отчество")->textInput(); ?>
+    <?= $UserCreateForm->field($UserForm, 'login')->label("Логин")->textInput(); ?>
+    <?= $UserCreateForm->field($UserForm, 'password')->label("Пароль")->passwordInput(); ?>
+    <div class="form-group">
+        <?= Html::submitButton('Создать', ['class'=>'btn btn-primary']); ?>
+    </div>
+    <?php
+    ActiveForm::end();
+    $this->endBlock();
+    //=========================================
+    $this->beginBlock('user_table_pagination')
+    ?>
+    <div class="pagination_users-table-admin-self">
+        <?= \yii\widgets\LinkPager::widget(['pagination'=>$Pagination]); ?>
+    </div>
+<?php
+    $this->endBlock();
+    endif
+?>
 <div class="section-admin">
     <h1 class="head1">Администрирование</h1>
     <h2 class="head2">Пользователи</h2>
@@ -60,18 +88,8 @@ use \yii\bootstrap\ActiveForm;
         </div>
         <div id="admin_user_create_window" class="admin-user-create-window" style="display: none">
             <div class="admin-user-create-window__head">Создание нового пользователя</div>
-            <?php if ('yii2'==$dataViewId): ?>
-                <?php $UserCreateForm=ActiveForm::begin(['action'=>['admin/users/users-tools/user-create', 'dataViewId' => $dataViewId, 'page' => $tablePageN]]) ?>
-                <?= $UserCreateForm->field($UserForm, 'id'); ?>
-                <?= $UserCreateForm->field($UserForm, 'surname')->label("Фамилия")->textInput(); ?>
-                <?= $UserCreateForm->field($UserForm, 'first_name')->label("Имя")->textInput(); ?>
-                <?= $UserCreateForm->field($UserForm, 'patronymic')->label("Отчество")->textInput(); ?>
-                <?= $UserCreateForm->field($UserForm, 'login')->label("Логин")->textInput(); ?>
-                <?= $UserCreateForm->field($UserForm, 'password')->label("Пароль")->passwordInput(); ?>
-                <div class="form-group">
-                    <?= Html::submitButton('Создать', ['class'=>'btn btn-primary']); ?>
-                </div>
-                <?php ActiveForm::end() ?>
+            <?php if (isset($this->blocks['user_create_window_yii2'])): ?>
+                <?= $this->blocks['user_create_window_yii2'] ?>
             <?php else: ?>
                 <form action="/">
                     <input type="hidden" name="r" value="admin/users/users-tools/user-create">
@@ -130,10 +148,8 @@ use \yii\bootstrap\ActiveForm;
             <?php } ?>
             <img src="<?= Html::encode( Yii::$app->params['image_prefix'].'close-button.png' ) ?>" class="close-button" onclick="Admin.userEditWindow.close()" alt="Закрыть">
         </div>
-        <?php if ('yii2'==$dataViewId): ?>
-            <div class="pagination_users-table-admin-self">
-                <?= \yii\widgets\LinkPager::widget(['pagination'=>$Pagination]); ?>
-            </div>
-        <?php endif ?>
+        <?php if (isset($this->blocks['user_table_pagination']))
+            echo $this->blocks['user_table_pagination'];
+        ?>
     </div>
 </div>
