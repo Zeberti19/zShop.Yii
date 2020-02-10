@@ -76,6 +76,11 @@ $config = [
     'defaultRoute'=>'categories',
     'language' => 'ru-RU',
     'layout'=>'main_z19',
+    'modules'=>[
+      'auth'=>[
+          'class'=>'app\modules\auth\AuthModule'
+      ]
+    ],
     'name' => 'Магазинчик у Zeberti19',
     'params' => $params,
     'timeZone' => 'Asia/Yekaterinburg',
