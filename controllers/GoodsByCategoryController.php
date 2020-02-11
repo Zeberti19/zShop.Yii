@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use app\models\CategoryGoods;
 
@@ -14,5 +15,16 @@ class GoodsByCategoryController extends Controller
         $this->view->registerCssFile('css/blocks/goods/goods.css');
         return $this->render('index.php',['CategoryGoods'=>$CategoryGoods,
                                           'GoodsList'=>$GoodsList]);
+    }
+
+    public function behaviors()
+    {
+        return [
+          [   'class'=>VerbFilter::class,
+              'actions'=>[
+                  'index'=>['GET']
+              ]
+          ]
+        ];
     }
 }
