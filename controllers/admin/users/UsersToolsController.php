@@ -125,7 +125,6 @@ class UsersToolsController extends Controller
         //
         $this->view->registerCssFile('css/admin/admin.css');
         $this->view->registerCssFile('css/blocks/users-table_admin.css');
-        $this->view->registerCssFile('css/blocks/admin-user-create-window.css');
         $this->view->registerCssFile('css/blocks/admin-user-edit-window.css');
         $this->view->registerCssFile('css/blocks/buttons/close-button/close-button.css');
         $this->view->registerCssFile('css/blocks/buttons/text-button/text-button.css');
@@ -160,11 +159,14 @@ class UsersToolsController extends Controller
             default:
                 $dataViewName='Самодельные инструменты';
         }
+        //TODO перенести второй тип модального окна "Создание нового пользователя" в отдельный виджет
+        if ($dataViewId) $this->view->registerCssFile('css/blocks/admin-user-create-window.css');
         //
         $dataRender['Users']=$Users->all();
         //
         $dataRender['dataViewId']=$dataViewId;
         $dataRender['dataViewName']=$dataViewName;
+        $dataRender['userCreateWindowId']='admin_user_create_window';
         $this->view->registerJs('Admin.dataViewId="' .str_replace('"','\"',$dataViewId) .'"');
         //
         return $this->render('index.php', $dataRender);
