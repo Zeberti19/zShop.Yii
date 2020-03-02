@@ -15,6 +15,13 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'assetManager'=>[
+          'bundles'=>[
+              'yii\web\JqueryAsset'=>[
+                  'js'=> [YII_ENV_DEV? 'jquery.js':'jquery.min.js']
+              ]
+          ]
+        ],
         'request' => [
             'cookieValidationKey' => 'z19Shp/kLling337.fLor-dSert_eGle',
         ],
