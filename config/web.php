@@ -20,7 +20,8 @@ $config = [
               'yii\web\JqueryAsset'=>[
                   'js'=> [YII_ENV_DEV? 'jquery.js':'jquery.min.js']
               ]
-          ]
+          ],
+          'linkAssets'=>true,
         ],
         'request' => [
             'cookieValidationKey' => 'z19Shp/kLling337.fLor-dSert_eGle',
