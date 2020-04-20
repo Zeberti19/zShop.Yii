@@ -1,12 +1,10 @@
-.login-form
-{
-    max-width: 25rem;
+/*переменная less добавлена чисто для эксперемента*/
+.login-form {
+  max-width: 25rem;
 }
-.login-form__register-part
-{
-    margin-top: 5rem;
+.login-form__register-part {
+  margin-top: 5rem;
 }
-.login-form__register-buttons
-{
-    margin-top: 2rem;
+.login-form__register-buttons {
+  margin-top: 2rem;
 }
