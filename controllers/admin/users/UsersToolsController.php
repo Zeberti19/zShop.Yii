@@ -123,21 +123,21 @@ class UsersToolsController extends Controller
     {
         $dataRender=[];
         //
-        $this->view->registerCssFile('css/admin/admin.css');
-        $this->view->registerCssFile('css/blocks/users-table_admin.css');
-        $this->view->registerCssFile('css/blocks/admin-user-create-window.css');
-        $this->view->registerCssFile('css/blocks/admin-user-edit-window.css');
-        $this->view->registerCssFile('css/blocks/buttons/close-button/close-button.css');
-        $this->view->registerCssFile('css/blocks/buttons/text-button/text-button.css');
-        $this->view->registerCssFile('css/blocks/view-changer/view-changer.css');
+        $this->view->registerCssFile('/css/admin/admin.css');
+        $this->view->registerCssFile('/css/blocks/users-table_admin.css');
+        $this->view->registerCssFile('/css/blocks/admin-user-create-window.css');
+        $this->view->registerCssFile('/css/blocks/admin-user-edit-window.css');
+        $this->view->registerCssFile('/css/blocks/buttons/close-button/close-button.css');
+        $this->view->registerCssFile('/css/blocks/buttons/text-button/text-button.css');
+        $this->view->registerCssFile('/css/blocks/view-changer/view-changer.css');
         //TODO подключение общих CSS и JS нужно прописать один раз в одном месте
-        $this->view->registerCssFile('css/blocks/hints/hint_brown.css');
-        $this->view->registerCssFile('css/blocks/message/message.css');
-        $this->view->registerJsFile('js/_ProjectCommon/ProjectCommon.js');
-        $this->view->registerJsFile('js/_ProjectCommon/Message.js');
+        $this->view->registerCssFile('/css/blocks/hints/hint_brown.css');
+        $this->view->registerCssFile('/css/blocks/message/message.css');
+        $this->view->registerJsFile('/js/_ProjectCommon/ProjectCommon.js');
+        $this->view->registerJsFile('/js/_ProjectCommon/Message.js');
         $this->view->registerJs('ProjectCommon.imagePrefix="' . Yii::$app->params['image_prefix'] . '"');
         //
-        $this->view->registerJsFile('js/admin/users/UsersTools.js');
+        $this->view->registerJsFile('/js/admin/users/UsersTools.js');
         $Users = Users::find()->orderBy('surname,first_name,patronymic');
         //
         switch($dataViewId)

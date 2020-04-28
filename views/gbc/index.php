@@ -21,7 +21,7 @@ use yii\helpers\Html;
     $price=strripos($Goods->price,'.') ? number_format($Goods->price,2,',', ' ') : number_format($Goods->price,0,',', ' ');
     ?>
     <!--TODO проверить, что ИД с кавычками разных видов доступен для вставки-->
-    <div class="goods" onclick="document.location='?r=goods&id=<?= Html::encode($Goods->id); ?>'">
+    <div class="goods" onclick="document.location='/goods/?id=<?= Html::encode($Goods->id); ?>'">
         <div class="goods__image-container">
             <img class="goods__image<?=($imageVerticalIs ? ' goods__image_vertical' : '')?>"
                  src="<?= Html::encode($imagePath) ?>" alt="Изображение категории товаров &quot;<?= $goodsNameEncoded ?>&quot;"

@@ -32,7 +32,7 @@ Admin.userEditWindow.containerForId='admin_user_edit_window_head_id_container';
  */
 Admin.dataViewNext= function ()
 {
-    window.location.assign('?r=admin/users/users-tools/data-view-next&dataViewId=' + encodeURIComponent(Admin.dataViewId))
+    window.location.assign('/admin/users/users-tools/data-view-next/?dataViewId=' + encodeURIComponent(Admin.dataViewId))
 };
 Admin.userCreateWindow.close=function()
 {
@@ -77,7 +77,7 @@ Admin.userDelete=function()
     rowSelected=rowSelected[0];
     if ('self'==Admin.dataViewId)
     {
-        window.location.assign('/?r=admin/users/users-tools/user-delete&id=' + encodeURIComponent(rowSelected.attributes['data-user_id'].value));
+        window.location.assign('/admin/users/users-tools/user-delete/?id=' + encodeURIComponent(rowSelected.attributes['data-user_id'].value));
     }
     else if ('yii2'==Admin.dataViewId)
     {

@@ -12,9 +12,9 @@ class CategoriesController extends Controller
         $errPrefix='Список категорий товаров. ';
         $CategoriesGoods=new CategoryGoods();
         $CategoriesGoods=$CategoriesGoods->find()->all();
-        $this->view->registerCssFile('css/categories.css');
-        $this->view->registerCssFile('css/blocks/what-interested.css');
-        $this->view->registerCssFile('css/blocks/category-goods.css');
+        $this->view->registerCssFile('/css/categories.css');
+        $this->view->registerCssFile('/css/blocks/what-interested.css');
+        $this->view->registerCssFile('/css/blocks/category-goods.css');
         return $this->render('index',['CategoriesGoods'=>$CategoriesGoods,'errPrefix'=>$errPrefix]);
     }
 }

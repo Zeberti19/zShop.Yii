@@ -16,9 +16,9 @@ class AuthController extends Controller
         if ( isset($_SESSION['user_id']) ) return $this->goHome();
         $dataRender=[];
         //
-        $this->view->registerCssFile('css/blocks/buttons/text-button/text-button.css');
-        $this->view->registerCssFile('css/blocks/login-form/login-form.css');
-        $this->view->registerJsFile('js/_ProjectCommon/ProjectCommon.js');
+        $this->view->registerCssFile('/css/blocks/buttons/text-button/text-button.css');
+        $this->view->registerCssFile('/css/blocks/login-form/login-form.css');
+        $this->view->registerJsFile('/js/_ProjectCommon/ProjectCommon.js');
         $this->view->registerJs('ProjectCommon.imagePrefix="' . Yii::$app->params['image_prefix'] . '"');
         $UsersForm = new Users(['scenario'=>Users::SCENARIO_LOGIN_FORM]);
         //
@@ -77,9 +77,9 @@ class AuthController extends Controller
         if ( isset($_SESSION['user_id']) ) return $this->goHome();
         $dataRender=[];
         //
-        $this->view->registerCssFile('css/blocks/buttons/text-button/text-button.css');
-        $this->view->registerCssFile('css/blocks/register-form/register-form.css');
-        $this->view->registerJsFile('js/_ProjectCommon/ProjectCommon.js');
+        $this->view->registerCssFile('/css/blocks/buttons/text-button/text-button.css');
+        $this->view->registerCssFile('/css/blocks/register-form/register-form.css');
+        $this->view->registerJsFile('/js/_ProjectCommon/ProjectCommon.js');
         $this->view->registerJs('ProjectCommon.imagePrefix="' . Yii::$app->params['image_prefix'] . '"');
         //
         $UsersForm = new Users(['scenario'=>Users::SCENARIO_REGISTER_FORM]);

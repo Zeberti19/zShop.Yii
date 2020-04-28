@@ -60,14 +60,14 @@ $config = [
             ],
         ],
         'db' => $dbDev,
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => false,
             'showScriptName' => false,
             'rules' => [
+                'auth'=>'_common/auth',
             ],
         ],
-        */
     ],
     'controllerMap'=>[
         //просто сокращение для длинного пути

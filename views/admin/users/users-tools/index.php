@@ -91,8 +91,7 @@ use \yii\bootstrap\ActiveForm;
             <?php if (isset($this->blocks['user_create_window_yii2'])): ?>
                 <?= $this->blocks['user_create_window_yii2'] ?>
             <?php else: ?>
-                <form action="/">
-                    <input type="hidden" name="r" value="admin/users/users-tools/user-create">
+                <form action="/admin/users/users-tools/user-create">
                     <?php //TODO проверить как поведет себя encode для значения с кавычками ?>
                     <input type="hidden" name="dataViewId" value="<?= Html::encode( $dataViewId ); ?>">
                     <div class="admin-user-create-window__labels-container">
@@ -128,8 +127,7 @@ use \yii\bootstrap\ActiveForm;
             }
             else
             { ?>
-                <form action="/">
-                    <input type="hidden" name="r" value="admin/users/users-tools/user-edit">
+                <form action="/admin/users/users-tools/user-edit">
                     <input id="admin-user-edit-window__input_id" type="hidden" name="data[id]" value="">
                     <div class="admin-user-edit-window__labels-container">
                         <label for="admin_user_edit_window_surname_field" class="admin-user-edit-window__label">Фамиилия*:</label>
