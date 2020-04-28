@@ -8,8 +8,12 @@
 /**@var app\models\Users $UserForm*/
 /**@var int $tablePageN*/
 
+use app\widgets\UserCreateWindow\UserCreateWindow;
 use yii\helpers\Html;
 use \yii\bootstrap\ActiveForm;
+
+/**@var string $userCreateWindowId*/
+$userCreateWindowIdEncoded=str_replace("'","\\'", Html::encode($userCreateWindowId));
 ?>
 <?php //TODO работа с блоками добавлена только для эксперемента, а так они здесь не нужны ?>
 <?php if ('yii2'==$dataViewId): ?>
@@ -68,7 +72,17 @@ use \yii\bootstrap\ActiveForm;
                     <th class="users-table_admin__cell">Отчество</th>
                 </tr>
                 <tr class="users-table_admin__row users-table_admin__line_tools">
-                    <td class="users-table_admin__cell" colspan="3"><span class="users-table_admin__tool" onclick="Admin.userCreateWindow.show()">Создать</span></td>
+                    <td class="users-table_admin__cell" colspan="3">
+                        <span class="users-table_admin__tool"
+                            <?php if ('yii2'==$dataViewId):?>
+                                onclick="Admin.userCreateWindow.show()"
+                            <?php else:?>
+                                onclick="UserCreateWindows['<?= $userCreateWindowIdEncoded ?>'].show()"
+                            <?php endif?>
+                            >
+                            Создать
+                        </span>
+                    </td>
                     <td class="users-table_admin__cell"><span class="users-table_admin__tool" onclick="Admin.userEditWindow.show()">Редактировать</span></td>
                     <td class="users-table_admin__cell"><span class="users-table_admin__tool" onclick="Admin.userDelete()">Удалить</span></td>
                 </tr>
@@ -86,39 +100,15 @@ use \yii\bootstrap\ActiveForm;
                 </tbody>
             </table>
         </div>
-        <div id="admin_user_create_window" class="admin-user-create-window" style="display: none">
-            <div class="admin-user-create-window__head">Создание нового пользователя</div>
-            <?php if (isset($this->blocks['user_create_window_yii2'])): ?>
+        <?php if (isset($this->blocks['user_create_window_yii2'])): ?>
+            <div id="admin_user_create_window" class="admin-user-create-window" style="display: none">
+                <div class="admin-user-create-window__head">Создание нового пользователя</div>
                 <?= $this->blocks['user_create_window_yii2'] ?>
-            <?php else: ?>
-                <form action="/admin/users/users-tools/user-create">
-                    <?php //TODO проверить как поведет себя encode для значения с кавычками ?>
-                    <input type="hidden" name="dataViewId" value="<?= Html::encode( $dataViewId ); ?>">
-                    <div class="admin-user-create-window__labels-container">
-                        <label for="admin_user_create_window_id_field" class="admin-user-create-window__label">ИД:</label>
-                        <label for="admin_user_create_window_surname_field" class="admin-user-create-window__label">Фамиилия*:</label>
-                        <label for="admin_user_create_window_firstname_field" class="admin-user-create-window__label">Имя*:</label>
-                        <label for="admin_user_create_window_patronymic_field" class="admin-user-create-window__label">Отчество*:</label>
-                        <label for="admin_user_create_window_login_field" class="admin-user-create-window__label">Логин*:</label>
-                        <label for="admin_user_create_window_password_field" class="admin-user-create-window__label">Пароль*:</label>
-                    </div>
-                    <div class="admin-user-create-window__fields-container">
-                        <input id="admin_user_create_window_id_field" name="id" class="admin-user-create-window__field" type="text">
-                        <input id="admin_user_create_window_surname_field" name="surname" class="admin-user-create-window__field" type="text">
-                        <input id="admin_user_create_window_firstname_field" name="first_name" class="admin-user-create-window__field" type="text">
-                        <input id="admin_user_create_window_patronymic_field" name="patronymic" class="admin-user-create-window__field" type="text">
-                        <input id="admin_user_create_window_login_field" name="login" class="admin-user-create-window__field" type="text">
-                        <input id="admin_user_create_window_password_field" name="password" class="admin-user-create-window__field" type="password">
-                    </div>
-                    <div class="admin-user-create-window__create-button"><input type="submit" name="create" value="Создать"></div>
-                    <div class="admin-user-create-window__comments">
-                        <div>- символом "*" отмечены обязательные поля для заполения</div>
-                        <div>- если ИД не указан, то он будет сформирован автоматически и выведен на экран</div>
-                    </div>
-                </form>
-            <?php endif ?>
-            <img src="<?= Html::encode( Yii::$app->params['image_prefix'].'close-button.png' ) ?>" class="close-button" onclick="Admin.userCreateWindow.close()" alt="Закрыть">
-        </div>
+                <img src="<?= Html::encode( Yii::$app->params['image_prefix'].'close-button.png' ) ?>" class="close-button" onclick="Admin.userCreateWindow.close()" alt="Закрыть">
+            </div>
+        <?php else: ?>
+            <?= UserCreateWindow::widget(['id'=>$userCreateWindowId,'dataViewId'=>$dataViewId])?>
+        <?php endif ?>
         <div id="admin_user_edit_window" class="admin-user-edit-window" style="display: none">
             <div>Редактирование пользователя с ИД: <span id="admin_user_edit_window_head_id_container" class="admin-user-edit-window__head-for-id"></span></div>
             <?php if ('yii2'==$dataViewId)
