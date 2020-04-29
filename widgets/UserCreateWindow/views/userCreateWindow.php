@@ -6,8 +6,7 @@ $idJsEncoded=str_replace( "'", "\\'", Html::encode($id) );
 ?>
 <div id="<?= Html::encode($idHtml)?>" class="admin-user-create-window" style="display: none">
     <div class="admin-user-create-window__head">Создание нового пользователя</div>
-    <form action="/">
-        <input type="hidden" name="r" value="admin/users/users-tools/user-create">
+    <form action="/admin/users/users-tools/user-create">
         <?php //TODO проверить как поведет себя encode для значения с кавычками ?>
         <input type="hidden" name="dataViewId" value="<?= Html::encode( $this->context->dataViewId ); ?>">
         <div class="admin-user-create-window__labels-container">
