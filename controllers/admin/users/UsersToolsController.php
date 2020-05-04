@@ -9,6 +9,7 @@ use yii;
 use yii\web\Controller;
 use app\models\Users;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 class UsersToolsController extends Controller
 {
@@ -161,7 +162,10 @@ class UsersToolsController extends Controller
         $dataRender['dataViewId']=$dataViewId;
         $dataRender['dataViewName']=$dataViewName;
         $dataRender['userCreateWindowId']='admin_user_create_window';
-        $this->view->registerJs('Admin.dataViewId="' .str_replace('"','\"',$dataViewId) .'"');
+        $this->view->registerJs("Admin.dataTypeChangeUrl='" .str_replace( "'", "\\'", Url::to(['data-view-next']) ) ."';"
+            .'Admin.dataViewId="' .str_replace('"','\"',$dataViewId) .'";'
+
+        );
         //
         return $this->render('index.php', $dataRender);
     }

@@ -9,6 +9,7 @@ Admin=new Object();
  * @type {null|string}
  */
 Admin.dataViewId=null;
+Admin.dataTypeChangeUrl=null;
 Admin.userTableId='users_table_admin';
 Admin.userTableRowCls='users-table_admin__row';
 Admin.userTableRowSelectCls='users-table_admin__row_selected';
@@ -32,7 +33,7 @@ Admin.userEditWindow.containerForId='admin_user_edit_window_head_id_container';
  */
 Admin.dataViewNext= function ()
 {
-    window.location.assign('/admin/users/users-tools/data-view-next/?dataViewId=' + encodeURIComponent(Admin.dataViewId))
+    window.location.assign( Admin.dataTypeChangeUrl + '?dataViewId=' + encodeURIComponent(Admin.dataViewId) );
 };
 Admin.userCreateWindow.close=function()
 {

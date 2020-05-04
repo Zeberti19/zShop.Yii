@@ -82,7 +82,19 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'auth'=>'_common/auth',
+                [
+                    'pattern'=>'gbc/<categoryId:.+>',
+                    'route'=>'gbc',
+                ],
+                [
+                    'pattern'=>'goods/<id:.+>',
+                    'route'=>'goods',
+                    //суффикс добавлен чисто для эксперемента
+                    'suffix'=>'/index.html'
+                ],
             ],
+            //суффикс добавлен чисто для эксперемента
+            'suffix'=>'/index.php'
         ],
     ],
     'controllerMap'=>[

@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 /**@var app\models\Goods $GoodsList*/
 /**@var app\models\CategoryGoods $CategoryGoods*/
 ?>
@@ -21,8 +22,8 @@ use yii\helpers\Html;
     $price=strripos($Goods->price,'.') ? number_format($Goods->price,2,',', ' ') : number_format($Goods->price,0,',', ' ');
     ?>
     <!--TODO проверить, что ИД с кавычками разных видов доступен для вставки-->
-    <div class="goods" onclick="document.location='/goods/?id=<?= Html::encode($Goods->id); ?>'">
-        <div class="goods__image-container">
+    <div class="goods" onclick="document.location='<?= str_replace("'", "\\'", Html::encode( Url::to(['/goods', 'id'=>$Goods->id ]) )); ?>'">
+    <div class="goods__image-container">
             <img class="goods__image<?=($imageVerticalIs ? ' goods__image_vertical' : '')?>"
                  src="<?= Html::encode($imagePath) ?>" alt="Изображение категории товаров &quot;<?= $goodsNameEncoded ?>&quot;"
                  height="300" width="300"

@@ -8,6 +8,7 @@ use app\models\UsersGiiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 
 /**
  * UsersGiiController implements the CRUD actions for UsersGii model.
@@ -39,7 +40,9 @@ class UsersGiiController extends Controller
         $this->view->registerJsFile('/js/admin/users/UsersGiiController.js');
         $this->view->registerJsFile('/js/admin/users/UsersGiiModel.js');
         $this->view->registerJsFile('/js/admin/users/UsersGiiView.js');
-        $this->view->registerJs('UsersGii.Model.dataViewId="' .str_replace('"','\"',$this->dataViewId) .'"');
+        $this->view->registerJs("UsersGii.Controller.dataTypeChangeUrl='" .str_replace( "'", "\\'", Url::to(['data-view-next']) ) ."';"
+            .'UsersGii.Model.dataViewId="' .str_replace('"','\"',$this->dataViewId) .'";'
+        );
 
         return $this->render('index', [
             'searchModel' => $searchModel,

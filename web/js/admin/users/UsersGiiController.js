@@ -1,5 +1,6 @@
 UsersGii={};
 UsersGii.Controller={};
+UsersGii.Controller.dataTypeChangeUrl=null;
 UsersGii.Controller.dataTypeChange=function () {
-    window.location.assign('/admin/users/users-gii/data-view-next/?dataViewId=' + encodeURIComponent('gii'));
+    window.location.assign( UsersGii.Controller.dataTypeChangeUrl + '?dataViewId=' + encodeURIComponent(UsersGii.Model.dataViewId) );
 };
