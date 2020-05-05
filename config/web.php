@@ -80,13 +80,17 @@ $config = [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => false,
             'showScriptName' => false,
+            'suffix'=>'/',
+            'normalizer'=>[
+                'class'=>'yii\web\UrlNormalizer',
+            ],
+            //
             //часть правил вынесена в отдельные файлы (например, в "urlConfingAuth.php")
             'rules' => [
                 'gbc/<categoryId:.+>'=>'gbc',
                 [
                     'pattern'=>'goods/<id:.+>',
                     'route'=>'goods',
-                    'suffix'=>'/index.html'
                 ],
             ],
         ],
