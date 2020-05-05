@@ -2,6 +2,7 @@
 /**@var app\models\Users $UserForm*/
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use \yii\bootstrap\ActiveForm;
 ?>
 <div class="section-auth">
@@ -18,11 +19,12 @@ use \yii\bootstrap\ActiveForm;
                 </div>
                 <div class="login-form__register-part">
                     <div>Нет аккаунта? Зарегиструйтесь!</div>
-                    <?php $UserRegisterForm=ActiveForm::begin(['action'=>['_common/auth/register-form-show']]) ?>
-                        <div class="login-form__register-buttons form-group">
-                            <?= Html::submitButton(Yii::t('app','Register'), ['class'=>'btn btn-success']); ?>
-                        </div>
-                    <?php ActiveForm::end() ?>
+                    <div class="login-form__register-buttons form-group">
+                        <?= Html::button( Yii::t('app','Register'),
+                            ['class'=>'btn btn-success',
+                             'onclick'=>"document.location.assign('" .str_replace("'", "\\'", Url::to(['/registration']) ) ."')"
+                            ]); ?>
+                    </div>
                 </div>
         </div>
 </div>
