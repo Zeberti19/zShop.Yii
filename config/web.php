@@ -80,21 +80,15 @@ $config = [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => false,
             'showScriptName' => false,
+            //часть правил вынесена в отдельные файлы (например, в "urlConfingAuth.php")
             'rules' => [
-                'auth'=>'_common/auth',
-                [
-                    'pattern'=>'gbc/<categoryId:.+>',
-                    'route'=>'gbc',
-                ],
+                'gbc/<categoryId:.+>'=>'gbc',
                 [
                     'pattern'=>'goods/<id:.+>',
                     'route'=>'goods',
-                    //суффикс добавлен чисто для эксперемента
                     'suffix'=>'/index.html'
                 ],
             ],
-            //суффикс добавлен чисто для эксперемента
-            'suffix'=>'/index.php'
         ],
     ],
     'controllerMap'=>[
@@ -123,6 +117,11 @@ $config = [
 //        $Event->isValid=false;
 //    },
 ];
+
+$config['components']['urlManager']['rules'] = array_merge(
+    $config['components']['urlManager']['rules'],
+    require 'urlConfigAuth.php'
+);
 
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment

@@ -36,9 +36,9 @@ class UsersDataViewNextAction extends \yii\base\Action
         {
             case 'self':
             case 'yii2':
-                return \Yii::$app->getResponse()->redirect(Url::to("/admin/users/users-tools/?dataViewId={$dataViewNext}"), 303);
+                return \Yii::$app->getResponse()->redirect(Url::to("/users-tools/?dataViewId={$dataViewNext}"), 303);
             case 'gii':
-                return \Yii::$app->getResponse()->redirect(Url::to("/admin/users/users-gii/?dataViewId={$dataViewNext}"), 303);
+                return \Yii::$app->getResponse()->redirect(Url::to("/users-gii/?dataViewId={$dataViewNext}"), 303);
             default:
                 return false;
         }

@@ -162,7 +162,7 @@ class UsersToolsController extends Controller
         $dataRender['dataViewId']=$dataViewId;
         $dataRender['dataViewName']=$dataViewName;
         $dataRender['userCreateWindowId']='admin_user_create_window';
-        $this->view->registerJs("Admin.dataTypeChangeUrl='" .str_replace( "'", "\\'", Url::to(['data-view-next']) ) ."';"
+        $this->view->registerJs("Admin.dataTypeChangeUrl='" .str_replace( "'", "\\'", Url::to([ 'data-view-next']) ) ."';"
             .'Admin.dataViewId="' .str_replace('"','\"',$dataViewId) .'";'
 
         );

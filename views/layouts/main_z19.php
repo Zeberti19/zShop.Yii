@@ -39,7 +39,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             (isset($_SESSION['user_privs']) and (in_array('admin_section_access',$_SESSION['user_privs'])))
-                ?['label' => 'Администрирование', 'url' => ['/admin/users/users-tools']]
+                ?['label' => 'Администрирование', 'url' => ['/users-tools']]
                 :'',
             ['label' => 'На главную', 'url' => ['/'.Yii::$app->defaultRoute]],
             ['label' => 'О нас', 'url' => ['/deprecated/site/about']],
