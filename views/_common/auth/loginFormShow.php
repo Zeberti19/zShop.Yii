@@ -11,7 +11,7 @@ use \yii\bootstrap\ActiveForm;
                 <div class="login-form__login-part">
                     <?php $UserCreateForm=ActiveForm::begin(['action'=>['_common/auth/login']]) ?>
                     <?= $UserCreateForm->field($UserForm, 'login')->textInput(); ?>
-                    <?= $UserCreateForm->field($UserForm, 'password')->passwordInput()?>
+                    <?= $UserCreateForm->field($UserForm, 'password')->passwordInput();?>
                     <div class="form-group">
                         <?= Html::submitButton(Yii::t('userAuthForms','Login'), ['class'=>'btn btn-primary']); ?>
                     </div>
