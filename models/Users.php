@@ -132,6 +132,7 @@ class Users extends ActiveRecord
     public function rules()
     {
         return [
+            [ ['surname','patronymic','first_name'], 'trim' ],
             [ 'id', 'safe', 'on'=>[static::SCENARIO_CREATE_BY_ADMIN] ],
             [ ['surname', 'patronymic', 'first_name', 'login', 'password', 'salt'], 'required', 'on'=>[static::SCENARIO_CREATE_BY_ADMIN,static::SCENARIO_CREATE_BY_USER,static::SCENARIO_EDIT] ],
             [ ['surname', 'patronymic', 'first_name', 'login', 'password'], 'required', 'on'=>static::SCENARIO_REGISTER_FORM ],
