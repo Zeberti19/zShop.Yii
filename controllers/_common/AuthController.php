@@ -60,7 +60,6 @@ class AuthController extends Controller
         //
         $UserNew=new Users(['scenario'=>Users::SCENARIO_CREATE_BY_USER]);
         $UserNew->attributes=Yii::$app->request->post('Users');
-        $UserNew->salt=Encode::getSaltNew();
         $UserNew->password=Encode::passwordEncode($UserNew->password,$UserNew->salt);
         if ( !$UserNew->validate() )
         {

@@ -37,6 +37,12 @@ class Users extends ActiveRecord
 
     protected $privsMas=null;
 
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+        $this->salt=Encode::getSaltNew();
+    }
+
     public function attributeLabels()
     {
         return [ 'id' =>  Yii::t('app','ID'),

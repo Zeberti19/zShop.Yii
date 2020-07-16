@@ -35,20 +35,17 @@ class UsersToolsController extends Controller
             $patronymic=Yii::$app->request->get('patronymic');
             $login=Yii::$app->request->get('login');
             $password=Yii::$app->request->get('password');
-            $salt=Encode::getSaltNew();
-            $password=Encode::passwordEncode($password,$salt);
-
+            //
             $UserNew = new Users(['scenario'=> Users::SCENARIO_CREATE_BY_ADMIN, "id" => $id, "surname" => $surname,
-                "first_name" => $firstname, "patronymic" => $patronymic, "login"=>$login, "password"=>$password,"salt"=>$salt]);
+                "first_name" => $firstname, "patronymic" => $patronymic, "login"=>$login]);
+            $UserNew->password=Encode::passwordEncode($password,$UserNew->salt);
         }
         elseif ('yii2'==$dataViewId)
         {
             $UserNew = new Users(['scenario'=> Users::SCENARIO_CREATE_BY_ADMIN]);
             //TODO разобраться почему здесь использую функцию "post", когда данные передаются через метод "GET"
             $UserNew->load(Yii::$app->request->post());
-            $salt=Encode::getSaltNew();
-            $UserNew->salt=$salt;
-            $UserNew->password=Encode::passwordEncode($UserNew->password,$salt);
+            $UserNew->password=Encode::passwordEncode($UserNew->password,$UserNew->salt);
         }
         //TODO добавить подробный вывод ошибок
         if ( !$UserNew ) throw new \Exception($mesPref.'Объект "Пользователь" (UserNew) не смог быть создан. Сохранение невозможно');
