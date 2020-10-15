@@ -12,4 +12,9 @@ class UsersToolsAssets extends AssetBundle
         'css/blocks/buttons/text-button/text-button.css',
         'css/blocks/view-changer/view-changer.css'
     ];
+
+    public $js=['js/angular/app.module.js',
+        'js/angular/users-tools/users-tools.module.js',
+        'js/angular/users-tools/users-tools.controller.js',
+    ];
 }

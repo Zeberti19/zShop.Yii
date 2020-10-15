@@ -27,6 +27,10 @@ $config = [
           'bundles'=>[
               'yii\web\JqueryAsset'=>[
                   'js'=> [YII_ENV_DEV? 'jquery.js':'jquery.min.js']
+              ],
+              'app\components\assetsBundles\AngularAssets'=>[
+                  'js'=> YII_ENV_DEV ? ['angular/angular.js', 'angular-route/angular-route.js']
+                                     : ['angular/angular.min.js','angular-route/angular-route.min.js']
               ]
           ],
           'linkAssets'=>true,

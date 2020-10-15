@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers\admin\users;
 
+use app\components\assetsBundles\AngularAssets;
 use app\components\helpers\Encode;
 use app\components\helpers\Logging;
 use app\components\assetsBundles\UsersToolsAssets;
@@ -123,6 +124,7 @@ class UsersToolsController extends Controller
     {
         $dataRender=[];
         //
+        AngularAssets::register($this->view);
         UsersToolsAssets::register($this->view);
         MessageCommonAssets::register($this->view);
         //TODO подключение общих CSS и JS нужно прописать один раз в одном месте

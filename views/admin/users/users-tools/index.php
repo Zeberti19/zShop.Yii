@@ -43,7 +43,7 @@ $userCreateWindowIdEncoded=str_replace("'","\\'", Html::encode($userCreateWindow
     $this->endBlock();
     endif
 ?>
-<div class="section-admin">
+<div class="section-admin" ng-app="ZShop" ng-controller="UsersToolsController">
     <h1 class="head1">Администрирование</h1>
     <h2 class="head2">Пользователи</h2>
     <div class="view-changer">
