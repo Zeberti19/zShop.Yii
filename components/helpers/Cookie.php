@@ -21,7 +21,7 @@ class Cookie
     {
         $params = session_get_cookie_params();
         $path=$path?$path:$params["path"];
-        $domain=$domain?$domain:$domain["domain"];
+        $domain=$domain?$domain:$params["domain"];
         $secure=$secure?$secure:$params["secure"];
         $httpOnly=$httpOnly?$httpOnly:$params["httponly"];
         setcookie($name, $value, time()+$cookieExpire, $path, $domain, $secure, $httpOnly);
@@ -40,7 +40,7 @@ class Cookie
     {
         $params = session_get_cookie_params();
         $path=$path?$path:$params["path"];
-        $domain=$domain?$domain:$domain["domain"];
+        $domain=$domain?$domain:$params["domain"];
         $secure=$secure?$secure:$params["secure"];
         $httpOnly=$httpOnly?$httpOnly:$params["httponly"];
         setcookie($name, '', time()-1, $path, $domain, $secure, $httpOnly);
