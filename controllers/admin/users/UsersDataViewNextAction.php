@@ -17,7 +17,7 @@ class UsersDataViewNextAction extends \yii\base\Action
      *
      * @var array
      */
-    protected $dataViewMas=['self','yii2','gii'];
+    protected $dataViewMas=['self','angular-js','yii2','gii'];
 
     /**
      * Меняет вид данных пользователей на следующий по порядку
@@ -36,6 +36,7 @@ class UsersDataViewNextAction extends \yii\base\Action
         {
             case 'self':
             case 'yii2':
+            case 'angular-js':
                 return \Yii::$app->getResponse()->redirect(Url::to("/users-tools/?dataViewId={$dataViewNext}"), 301);
             case 'gii':
                 return \Yii::$app->getResponse()->redirect(Url::to("/users-gii/?dataViewId={$dataViewNext}"), 301);

@@ -1,11 +1,14 @@
 <?php
 namespace app\controllers\admin\users;
 
+use app\components\assetsBundles\_common\MessageCommonAssets;
 use app\components\assetsBundles\AngularAssets;
+use app\components\assetsBundles\admin\users\UsersToolsAssets;
+use app\components\assetsBundles\admin\users\UsersToolsAngularAssets;
+
 use app\components\helpers\Encode;
 use app\components\helpers\Logging;
-use app\components\assetsBundles\UsersToolsAssets;
-use app\components\assetsBundles\_common\MessageCommonAssets;
+
 use yii;
 use yii\web\Controller;
 use app\models\Users;
@@ -112,6 +115,13 @@ class UsersToolsController extends Controller
         return $this->actionUsersTableShow('self');
     }
 
+    public function actionUsersGet()
+    {
+        Yii::$app->response->format=yii\web\Response::FORMAT_JSON;
+        $userMas=Users::find()->select(['id','surname','first_name','patronymic','login'])->orderBy('surname,first_name,patronymic')->asArray()->all();
+        return $userMas;
+    }
+
     /**
      * Отображает таблицу с данными о пользователях и инструментами для их создания, редактирования и прочего
      *
@@ -119,12 +129,17 @@ class UsersToolsController extends Controller
      *          ИД вида представления данных (т.е. данные о пользователях могут быть представлены в разных видах
      *          и с разными инструментами)
      * @return string
+     * @throws yii\base\InvalidConfigException
      */
     public function actionUsersTableShow($dataViewId='self')
     {
         $dataRender=[];
         //
-        AngularAssets::register($this->view);
+        if ('angular-js'==$dataViewId)
+        {
+            AngularAssets::register($this->view);
+            UsersToolsAngularAssets::register($this->view);
+        }
         UsersToolsAssets::register($this->view);
         MessageCommonAssets::register($this->view);
         //TODO подключение общих CSS и JS нужно прописать один раз в одном месте
@@ -148,10 +163,16 @@ class UsersToolsController extends Controller
                 $Pagination->params=['page'=>$tablePageN,'dataViewId'=>$dataViewId];
                 $dataRender['Pagination']=$Pagination;
                 $Users->offset($Pagination->offset)->limit($Pagination->limit);
+                $viewName="index.php";
+                break;
+            case 'angular-js':
+                $dataViewName='Инструменты на основе AngularJs';
+                $viewName="angular-js.php";
                 break;
             case 'self':
             default:
                 $dataViewName='Самодельные инструменты';
+                $viewName="index.php";
         }
         //TODO перенести второй тип модального окна "Создание нового пользователя" в отдельный виджет
         if ($dataViewId) $this->view->registerCssFile('/css/blocks/admin-user-create-window.css');
@@ -166,7 +187,7 @@ class UsersToolsController extends Controller
 
         );
         //
-        return $this->render('index.php', $dataRender);
+        return $this->render($viewName, $dataRender);
     }
 
     public function beforeAction($Action)
