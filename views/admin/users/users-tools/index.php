@@ -1,11 +1,11 @@
 <?php
-/**@var app\models\Users $Users*/
+/**@var app\models\SpecialUser $Users*/
 /**@var string|null $userNewId*/
 /**@var string|null $messageHtml*/
 /**@var string $dataViewId*/
 /**@var string $dataViewName*/
 /**@var yii\data\Pagination $Pagination*/
-/**@var app\models\Users $UserForm*/
+/**@var app\models\SpecialUser $UserForm*/
 /**@var int $tablePageN*/
 
 use app\widgets\UserCreateWindow\UserCreateWindow;
@@ -15,7 +15,7 @@ use \yii\bootstrap\ActiveForm;
 /**@var string $userCreateWindowId*/
 $userCreateWindowIdEncoded=str_replace("'","\\'", Html::encode($userCreateWindowId));
 ?>
-<?php //TODO работа с блоками добавлена только для эксперемента, а так они здесь не нужны ?>
+<?php //TODO работа с блоками добавлена только для эксперемента, а так они здесь не нужны. Так что убрать их ?>
 <?php if ('yii2'==$dataViewId): ?>
     <?php
     $this->beginBlock('user_create_window_yii2');
@@ -113,7 +113,7 @@ $userCreateWindowIdEncoded=str_replace("'","\\'", Html::encode($userCreateWindow
             <div>Редактирование пользователя с ИД: <span id="admin_user_edit_window_head_id_container" class="admin-user-edit-window__head-for-id"></span></div>
             <?php if ('yii2'==$dataViewId)
             {
-                //TODO Добавить объекты Yii2 фреймворка для редактирования пользователя
+                //TODO Добавить редактирование пользователя
             }
             else
             { ?>

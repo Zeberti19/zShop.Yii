@@ -7,7 +7,6 @@ use yii\helpers\Html;
     <h1 class="head1">Администрирование</h1>
     <h2 class="head2">Пользователи</h2>
     <div class="view-changer">
-        <!--TODO уточнить как в БЭМ совмещаются разные блоки в одном-->
         <div class="view-changer__text"><span class="view-changer__description">Вид данных: </span>
             "<span class="view-changer__view-name"><?= $dataViewName;?></span>"
         </div>

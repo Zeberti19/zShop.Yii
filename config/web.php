@@ -58,7 +58,7 @@ $config = [
             'loginUrl'=>'deprecated/site/login',
             'enableAutoLogin' => true,
         ],
-        'users'=>['class'=>'app\models\Users'],
+        'users'=>['class'=> 'app\models\SpecialUser'],
         'errorHandler' => [
             //TODO изменить обработчик ошибок
             'errorAction' => 'deprecated/site/error',

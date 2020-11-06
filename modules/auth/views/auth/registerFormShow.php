@@ -1,5 +1,5 @@
 <?php
-/**@var app\models\Users $UserForm*/
+/**@var app\models\SpecialUser $UserForm*/
 
 use yii\helpers\Html;
 use \yii\bootstrap\ActiveForm;

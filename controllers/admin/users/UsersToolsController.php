@@ -11,7 +11,7 @@ use app\components\helpers\Logging;
 
 use yii;
 use yii\web\Controller;
-use app\models\Users;
+use app\models\SpecialUser;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -40,14 +40,13 @@ class UsersToolsController extends Controller
             $login=Yii::$app->request->get('login');
             $password=Yii::$app->request->get('password');
             //
-            $UserNew = new Users(['scenario'=> Users::SCENARIO_CREATE_BY_ADMIN, "id" => $id, "surname" => $surname,
+            $UserNew = new SpecialUser(['scenario'=> SpecialUser::SCENARIO_CREATE_BY_ADMIN, "id" => $id, "surname" => $surname,
                 "first_name" => $firstname, "patronymic" => $patronymic, "login"=>$login]);
             $UserNew->password=Encode::passwordEncode($password,$UserNew->salt);
         }
         elseif ('yii2'==$dataViewId)
         {
-            $UserNew = new Users(['scenario'=> Users::SCENARIO_CREATE_BY_ADMIN]);
-            //TODO разобраться почему здесь использую функцию "post", когда данные передаются через метод "GET"
+            $UserNew = new SpecialUser(['scenario'=> SpecialUser::SCENARIO_CREATE_BY_ADMIN]);
             $UserNew->load(Yii::$app->request->post());
             $UserNew->password=Encode::passwordEncode($UserNew->password,$UserNew->salt);
         }
@@ -80,7 +79,7 @@ class UsersToolsController extends Controller
     public function actionUserDelete($id)
     {
         //TODO добавить подробный вывод ошибок
-        if ( !Users::deleteAll(['id' => $id])) return "Возникла ошибка при удалении пользователя";
+        if ( !SpecialUser::deleteAll(['id' => $id])) return "Возникла ошибка при удалении пользователя";
         return $this->actionUsersTableShow('self');
     }
 
@@ -97,8 +96,8 @@ class UsersToolsController extends Controller
         $mesPref='Редактирование пользователя. ';
         //
         /**@var yii\db\ActiveRecord $UserEdit */
-        $UserEdit = Users::findOne(["id" => $data['id']]);
-        $UserEdit->scenario=Users::SCENARIO_EDIT;
+        $UserEdit = SpecialUser::findOne(["id" => $data['id']]);
+        $UserEdit->scenario=SpecialUser::SCENARIO_EDIT;
         $UserEdit->surname = $data['surname'];
         $UserEdit->first_name = $data['first_name'];
         $UserEdit->patronymic = $data['patronymic'];
@@ -118,7 +117,7 @@ class UsersToolsController extends Controller
     public function actionUsersGet()
     {
         Yii::$app->response->format=yii\web\Response::FORMAT_JSON;
-        $userMas=Users::find()->select(['id','surname','first_name','patronymic','login'])->orderBy('surname,first_name,patronymic')->asArray()->all();
+        $userMas=SpecialUser::find()->select(['id','surname','first_name','patronymic','login'])->orderBy('surname,first_name,patronymic')->asArray()->all();
         return $userMas;
     }
 
@@ -142,17 +141,16 @@ class UsersToolsController extends Controller
         }
         UsersToolsAssets::register($this->view);
         MessageCommonAssets::register($this->view);
-        //TODO подключение общих CSS и JS нужно прописать один раз в одном месте
         $this->view->registerJs('ProjectCommon.imagePrefix="' . Yii::$app->params['image_prefix'] . '"');
         //
         $this->view->registerJsFile('/js/admin/users/UsersTools.js');
-        $Users = Users::find()->orderBy('surname,first_name,patronymic');
+        $Users = SpecialUser::find()->orderBy('surname,first_name,patronymic');
         //
         switch($dataViewId)
         {
             case 'yii2':
                 $dataViewName='Yii2 инструменты';
-                $UserForm=new Users(['scenario'=> Users::SCENARIO_CREATE_BY_ADMIN]);
+                $UserForm=new SpecialUser(['scenario'=> SpecialUser::SCENARIO_CREATE_BY_ADMIN]);
                 $dataRender['UserForm']=$UserForm;
                 //
                 $Pagination=new yii\data\Pagination(['totalCount'=>$Users->count(), 'defaultPageSize'=>10]);

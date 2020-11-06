@@ -8,7 +8,7 @@ use Exception;
 use Yii;
 use yii\db\ActiveRecord;
 
-class Users extends ActiveRecord
+class SpecialUser extends ActiveRecord
 {
     /**
      * Сценарий используемый при создании пользователя через раздел "Администрирование"
@@ -67,7 +67,6 @@ class Users extends ActiveRecord
         $errMesPref='Авторизация. ';
         $login=(!$login and isset($_COOKIE['user_login']))? $_COOKIE['user_login'] : $login;
         if(!$password and $passwordIsHash) $password=isset($_COOKIE['user_login'])?$_COOKIE['user_password']:$password;
-        //TODO проверить, что будет если передать логин или пароль в виде строки "0"
         if ((!$login and 0 !==$login and '0' !==$login)
             or !$password)
             throw new Exception($errMesPref.'Логин или пароль не указаны ни в параметрах функции "auth", ни в куках',0);

@@ -4,7 +4,7 @@ namespace app\modules\auth\controllers;
 use PHPUnit\Framework\Exception;
 use yii;
 use yii\web\Controller;
-use app\models\Users;
+use app\models\SpecialUser;
 use app\components\helpers\Encode;
 
 class AuthController extends Controller
@@ -29,7 +29,7 @@ class AuthController extends Controller
         try
         {
             $postData=Yii::$app->request->post('Users');
-            Users::auth($postData['login'],$postData['password'],false);
+            SpecialUser::auth($postData['login'],$postData['password'],false);
         }
         catch(Exception $Exception)
         {
@@ -52,7 +52,7 @@ class AuthController extends Controller
         $this->view->registerCssFile('/css/blocks/login-form/login-form.css');
         $this->view->registerJsFile('/js/_ProjectCommon/ProjectCommon.js');
         $this->view->registerJs('ProjectCommon.imagePrefix="' . Yii::$app->params['image_prefix'] . '"');
-        $UsersForm = new Users(['scenario'=>Users::SCENARIO_LOGIN_FORM]);
+        $UsersForm = new SpecialUser(['scenario'=>SpecialUser::SCENARIO_LOGIN_FORM]);
         //
         $dataRender['UserForm']=$UsersForm;
         //
@@ -61,7 +61,7 @@ class AuthController extends Controller
 
     public function actionLogout()
     {
-        Users::logout();
+        SpecialUser::logout();
         return $this->goHome();
     }
 
@@ -70,7 +70,7 @@ class AuthController extends Controller
         if ( isset($_SESSION['user_id'])) return $this->goHome();
         $mesPref='Регистрация нового пользователя. ';
         //
-        $UserNew=new Users(['scenario'=>Users::SCENARIO_CREATE_BY_USER]);
+        $UserNew=new SpecialUser(['scenario'=>SpecialUser::SCENARIO_CREATE_BY_USER]);
         $UserNew->attributes=Yii::$app->request->post('Users');
         $UserNew->salt=Encode::getSaltNew();
         $UserNew->password=Encode::passwordEncode($UserNew->password,$UserNew->salt);
@@ -95,7 +95,7 @@ class AuthController extends Controller
         $this->view->registerJsFile('/js/_ProjectCommon/ProjectCommon.js');
         $this->view->registerJs('ProjectCommon.imagePrefix="' . Yii::$app->params['image_prefix'] . '"');
         //
-        $UsersForm = new Users(['scenario'=>Users::SCENARIO_REGISTER_FORM]);
+        $UsersForm = new SpecialUser(['scenario'=>SpecialUser::SCENARIO_REGISTER_FORM]);
         $dataRender['UserForm']=$UsersForm;
         //
         return $this->render('registerFormShow.php',$dataRender);
